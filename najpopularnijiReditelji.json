@@ -1,0 +1,27 @@
+[
+  {
+    "pisacID": 1,
+    "ime": "Haled",
+    "prezime": "Hoseini"
+  },
+  {
+    "pisacID": 2,
+    "ime": "Danilo",
+    "prezime": "Kiš"
+  },
+  {
+    "pisacID": 3,
+    "ime": "Herman",
+    "prezime": "Hese"
+  },
+  {
+    "pisacID": 4,
+    "ime": "Haruki",
+    "prezime": "Murakami"
+  },
+  {
+    "pisacID": 5,
+    "ime": "Miloš",
+    "prezime": "Crnjanski"
+  }
+]
