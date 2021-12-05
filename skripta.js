@@ -1,5 +1,5 @@
 var a = 1;
-
+/*
 function skloniBlokove(nizBlokova, div) {
   for (const blok of nizBlokova) {
     document.getElementById(blok).style.display = "none";
@@ -13,7 +13,7 @@ function prikaziBlokove(nizBlokova, div) {
   }
   document.getElementById(div).style.display = "none";
 }
-
+*/
 function proveriFormuZaKnjige() {
   if (document.getElementById("novaKnjiga").value == "") {
     confirm("Unesi naziv filma.");
@@ -40,7 +40,7 @@ function proveriFormuZaKnjige() {
       document.getElementById("prezimeNovogPisca").value != "" &&
       document.getElementById("zemljaPisca").value != "")
   ) {
-    alert("Popunite ispravno podatke pisca!");
+    alert("Popunite podatke o reditelju.");
   }
 }
 
@@ -51,9 +51,7 @@ function proveriFormuZaBrisanjeKnjige() {
     document.getElementById("zemljaPisca").value != "" ||
     document.getElementById("noviZanr").value != ""
   ) {
-    alert(
-      "Ne smete popunjavati podatke o piscu ili knjizi ukoliko brišete postojeću knjigu!"
-    );
+    alert("Ne možete popunjavati podatke o reditelju ili filmu ako brišete postojeći film.");
   }
 }
 
@@ -92,14 +90,14 @@ function proveriFormuZaUnosCitaoca() {
     alert("Vrsta članstva mora biti 1, 2 ili 3.");
   }
 }
-
+/*
 function skloniDiv(div) {
   document.getElementById(div).innerHTML = "";
 }
-
+*/
 function loadText() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "tekst.txt", true);
+  xhr.open("GET", "oNama.txt", true);
 
   xhr.onload = function () {
     if (this.status == 200) {
