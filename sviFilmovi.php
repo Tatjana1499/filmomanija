@@ -4,61 +4,47 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sve knjige</title>
+  <title>Filmovi</title>
 <style>
- a{
-    color: black;
-    text-decoration: none;
-  }
+  h2{
+    position: relative;
+  left: 65%;
+ width: 200px;
+  } 
   body {
-  padding: 0;
+    padding: 0;
   font-weight: 10px;
   background: url("slika1.jpg");
-  color: #990000;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
   }
-
-  input{
-     background-color: #FFCC99;
-     color: black;
-  }
-
-  select{
-    background-color: #FFCC99;
-     color: black;
-  }
-
-  button{
-    font-weight: bold;
-    background-color: #ffb266;
-    color: black;
-  }
-
-  th{
-     background-color: #ffb266;
-  }
-
-  td{
-     background-color: #FFCC99;
-  }
+table{
+  position: relative;
+  width: 700px;
+  left: 50%;
+  top: 100px;
+  background-color: purple;
+    color: white;
+    text-align: center;
+}
 </style>
 </head>
 <body>
-  
 </body>
 </html>
-
 <?php
   include "konekcija.php";
-  echo "<h2>Sve naše knjige: </h2>";
+  echo "<h2>Dostupni filmovi: </h2>";
   $sqlUpit = "SELECT * FROM knjiga JOIN pisac USING(pisacID) JOIN zanr USING(zanrID)";
   $rez = mysqli_query($link, $sqlUpit);
   if(!$rez)
     die ("Upit nije uspešno izvršen.");
   echo "<table border=2>";
   echo "<tr>";
-    echo "<th>"; echo "Naslov knjige"; "</th>";
-    echo "<th>"; echo "Pisac knjige"; "</th>";
-    echo "<th>"; echo "Zanr"; echo "</th>";
+    echo "<th>"; echo "Naziv filma"; "</th>";
+    echo "<th>"; echo "Reditelj"; "</th>";
+    echo "<th>"; echo "Žanr"; echo "</th>";
   echo "</tr>";  
     while($knjiga = mysqli_fetch_array($rez))
     {
@@ -69,5 +55,4 @@
       echo "</tr>";
     }
   echo "</table>";
-
 ?>
