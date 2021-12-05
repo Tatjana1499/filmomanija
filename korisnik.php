@@ -12,13 +12,11 @@
   color: lightblue;
     text-decoration: none;
   }
-
   label{
     background-color: purple;
     color: white;
     font-size: large;
   }
-
   body {
   padding: 0;
   background: url("slika1.jpg");
@@ -29,89 +27,90 @@
   .unosKorisnika{
   position: relative;
   left: 50%;
-    width: 200px;
+  width: 200px;
  }
 .proveraIznajmljivanja{
   position: relative;
   left: 50%;
-    width: 400px;
+  width: 400px;
 }
 .iznajmljivanje{
   position: relative;
   left: 50%;
-    width: 600px;
+  width: 600px;
 }
-  .sviKorisnici{
-    position: relative;
-    left: 80%;
-    width: 200px;
-    font-size: large;
-  }
-  input{
-     background-color: white;
-     color: black;
-  }
-  select{
-    background-color: white;
-     color: black;
-  }
-  button{
-    font-weight: bold;
-    background-color: white;
-    color: black;
-  }
-
-  th{
-    background-color: #FFCC99;
-  }
-
-  td{
-    background-color: #FFCC99;
-  }
-  
+.sviKorisnici{
+  position: relative;
+  left: 80%;
+  width: 200px;
+  font-size: large;
+}
+input{
+  background-color: white;
+  color: black;
+}
+select{
+  background-color: white;
+  color: black;
+}
+button{
+  font-weight: bold;
+  background-color: white;
+  color: black;
+}
+th{
+  background-color: purple;
+  color: white;
+}
+td{
+  background-color: purple;
+  color: white;
+}
+.iznajmljeni{
+  position: relative;
+  top:10px;
+  left: 800px;
+  text-align: center;
+  width: 400px;
+  height: 150px;
+}
 </style>
 <script src="skripta.js"></script>
-
  <title>Korisnik</title>
 </head>
 <body>
-
     <div id="sviKorisnici", class="sviKorisnici">
     <p>Spisak trenutnih
      <a href="sviKorisnici.php" target="_blank">korisnika</a>
     </p>
     </div>
-
     <div id="unosKorisnika", class="unosKorisnika">
-    
       <form action="" name="frmUnosKorisnika" method="post">
       <label for="">Postanita naš korisnik! </label><br><br>
         <label for="ime">Ime:</label><br>
         <input type="text" name="ime" id="ime" placeholder="Unesite ime"> <br><br>
         <label for="prezime">Prezime: </label><br>
         <input type="text" name="prezime" id="prezime" placeholder="Unesite prezime"> <br><br>
-        <label for="vrsta">Vrsta članstva: </label><br>
-        <input type="text" name="vrstaCL" id="vrstaCl" placeholder="Unesite vrstu članstva"> <br>
+        <label for="vrstaCl">Vrsta članstva: </label><br>
+        <input type="text" name="vrstaCl" id="vrstaCl" placeholder="Unesite vrstu članstva"> <br>
         <br>
         <button type="submit" name="registruj"onclick="proveriFormuZaUnosCitaoca()">Unesi u bazu</button>
         <br>
     </form>
     <br>
-  
     </div>
-    <br>
 
+    <br>
     <div id="proveraIznajmljivanja", class="proveraIznajmljivanja">
-      
       <form action="" name="proveravanje" method="post">
       <label for="">Proverite zaduženje: </label><br><br>
         <label for="prov">Korisnik: </label>
-        <select name="ponudaCitaoca" id="prov">
+        <select name="listaKorisnika" id="prov">
           <?php
             $rez = Citalac::vratiSveCitaoce($link);
-            while($citalac = mysqli_fetch_array($rez))
+            while($korisnik = mysqli_fetch_array($rez))
             {
-              $imePrezime = $citalac['ime'].' '.$citalac['prezime'];
+              $imePrezime = $korisnik['ime'].' '.$korisnik['prezime'];
           ?>    
               <option value="<?php echo $imePrezime?>"><?php echo $imePrezime?></option>
           <?php    
@@ -132,12 +131,12 @@
       <form action="" method="post" name="iznajmi">
         <label for="">Unesite novo iznajmljivanje:</label><br><br>
           <label for="citic">Korisnik: </label>
-          <select name="ponudaCitalaca" id="citic">
+          <select name="ponudakorisnika" id="citic">
           <?php
             $rez = Citalac::vratiSveCitaoce($link);
-            while($citalac = mysqli_fetch_array($rez))
+            while($korisnik = mysqli_fetch_array($rez))
             {
-              $imePrezime = $citalac['ime'].' '.$citalac['prezime'];
+              $imePrezime = $korisnik['ime'].' '.$korisnik['prezime'];
           ?>    
               <option value="<?php echo $imePrezime?>"><?php echo $imePrezime?></option>
           <?php    
@@ -176,17 +175,17 @@
 </html>
 
 <?php
-  //  upisivanje novog citaoca u bazu 
+  //  upisivanje novog korisnika u bazu 
   if(isset($_POST['registruj']))
   {
     if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['vrstaCl'] !== "")
     {
-        $citalac = new Citalac($_POST['ime'], $_POST['prezime'], $_POST['vrstaCl']);
+        $korisnik = new Citalac($_POST['ime'], $_POST['prezime'], $_POST['vrstaCl']);
         //provera da li postoji u bazi
-        if(!$citalac->postojiUBazi($link))
-          $citalac->upisiUBazu($link);
+        if(!$korisnik->postojiUBazi($link))
+          $korisnik->upisiUBazu($link);
         else
-           echo "Citalac vec postoji u bazi!";
+           echo "Korisnik vec postoji u bazi.";
     }
 
   }
@@ -194,12 +193,12 @@
   //provera koju knjigu je uzeo koji korisnik
   if(isset($_POST['provera']))
   {
-    $vrednost = $_POST['ponudaCitaoca'];
+    $vrednost = $_POST['listaKorisnika'];
     $povratniNiz = Citalac::iseciImePrezime($vrednost);
     $id = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     $rezultatUpita = UzeoKnjigu::vratiSpojenoCitalacKnjigaPisac($link);
 
-    echo '<table border="2">';
+    echo '<table class="iznajmljeni" border="2">';
     echo '<tr>';
       echo '<th>'; echo 'Ime' ; echo '</th>';
       echo '<th>'; echo 'Prezime' ; echo '</th>';
@@ -224,7 +223,7 @@
   //brisanje konkretnog citaoca
   if(isset($_POST['brisanjeCitaoca']))
   {
-    $vrednost = $_POST['ponudaCitaoca'];
+    $vrednost = $_POST['listaKorisnika'];
     $povratniNiz = Citalac::iseciImePrezime($vrednost);
     $id = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     Citalac::izbaciCitaoca($link, $id);
@@ -235,31 +234,31 @@
   //unos zaduzenja
   if(isset($_POST['iznajmiSad']))
   {
-    $imePrezime = $_POST['ponudaCitalaca'];
+    $imePrezime = $_POST['ponudakorisnika'];
     $imeKnjige = $_POST['ponudaKnjiga'];
     $idKnjige = Knjiga::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
     $povratniNiz = Citalac::iseciImePrezime($imePrezime);
-    $citalacID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    $korisnikID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     
-    if(UzeoKnjigu::postojiParCitalacKnjiga($link, $citalacID, $idKnjige))
+    if(UzeoKnjigu::postojiParCitalacKnjiga($link, $korisnikID, $idKnjige))
       die("Čitalac $imePrezime je već zadužio knjigu $imeKnjige.");
 
-    UzeoKnjigu::ubaciParCitalacKnjigaUBazu($link, $citalacID, $idKnjige);
+    UzeoKnjigu::ubaciParCitalacKnjigaUBazu($link, $korisnikID, $idKnjige);
     
   }
   //vratiSad citaoca
   if(isset($_POST['vratiSad']))
   {
-    $imePrezime = $_POST['ponudaCitalaca'];
+    $imePrezime = $_POST['ponudakorisnika'];
     $imeKnjige = $_POST['ponudaKnjiga'];
     $idKnjige = Knjiga::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
     $povratniNiz = Citalac::iseciImePrezime($imePrezime);
-    $citalacID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    $korisnikID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     
-    if(!UzeoKnjigu::postojiParCitalacKnjiga($link, $citalacID, $idKnjige))
+    if(!UzeoKnjigu::postojiParCitalacKnjiga($link, $korisnikID, $idKnjige))
       die("Čitalac $imePrezime nije uzeo knjigu $imeKnjige.");
 
-    UzeoKnjigu::izbaciParCitalacKnjiga($link, $citalacID, $idKnjige);
+    UzeoKnjigu::izbaciParCitalacKnjiga($link, $korisnikID, $idKnjige);
 
   }
 

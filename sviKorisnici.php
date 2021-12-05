@@ -30,7 +30,8 @@
      color: white;
   }
   h1{
-     text-align: center; 
+   position: relative;
+    left: 700px;
   }
 </style>
 </head>

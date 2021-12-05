@@ -61,35 +61,35 @@ function proveriFormuZaUnosCitaoca() {
   if (
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value != "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value != "") ||
+      document.getElementById("vrstaCl").value != "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value != "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value != "") ||
+      document.getElementById("vrstaCl").value != "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value !== "" &&
-      document.getElementById("kategorija").value != "")
+      document.getElementById("vrstaCl").value != "")
   ) {
     alert("Morate popuniti sve podatke o čitaocu!");
     return;
   }
 
   if (
-    document.getElementById("kategorija").value > 3 ||
-    document.getElementById("kategorija").value == 0
+    document.getElementById("vrstaCl").value > 3 ||
+    document.getElementById("vrstaCl").value == 0
   ) {
-    alert("Kategorija članstva mora biti u skupu vrednosti {1, 2, 3}!");
+    alert("Vrsta članstva mora biti u skupu vrednosti {1, 2, 3}!");
   }
 }
 
