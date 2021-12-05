@@ -74,6 +74,12 @@ td{
   width: 400px;
   height: 150px;
 }
+h3{
+  position: relative;
+  left: 760px;
+  width: 500px;
+  background-color: purple;
+}
 </style>
 <script src="skripta.js"></script>
  <title>Korisnik</title>
@@ -99,7 +105,6 @@ td{
     </form>
     <br>
     </div>
-
     <br>
     <div id="proveraIznajmljivanja", class="proveraIznajmljivanja">
       <form action="" name="proveravanje" method="post">
@@ -117,21 +122,17 @@ td{
             } 
           ?>  
         </select>
-        <button type="submit" name="provera">Proveri</button>
-        <button type="submit" name="brisanjeCitaoca" value="Obriši">Obriši</button>
+        <button type="submit" name="proveraZaduzenja">Proveri</button>
+        <button type="submit" name="obrisiKorisnika" value="Obrisi">Obriši</button>
       </form>
       <br>
-      
       </div>
       <br>
-
-      <!-- vratiSad/iznajmiSad -->
       <div id="iznajmljivanje", class="iznajmljivanje">
-     
       <form action="" method="post" name="iznajmi">
-        <label for="">Unesite novo iznajmljivanje:</label><br><br>
-          <label for="citic">Korisnik: </label>
-          <select name="ponudakorisnika" id="citic">
+        <label for="">Novo zaduženje:</label><br><br>
+          <label for="kor">Korisnik: </label>
+          <select name="listaKor" id="kor">
           <?php
             $rez = Citalac::vratiSveCitaoce($link);
             while($korisnik = mysqli_fetch_array($rez))
@@ -143,15 +144,15 @@ td{
             } 
           ?>  
           </select>
-          <label for="knjiga">Film: </label> 
-          <select name="ponudaKnjiga" id="knjiga">
+          <label for="film">Film: </label> 
+          <select name="listaFilmova" id="film">
             <?php
               $rez = Knjiga::vratiSveKnjige($link);
-              while($knjiga = mysqli_fetch_array($rez))
+              while($film = mysqli_fetch_array($rez))
               {
-                $naslov = $knjiga['imeKnjige'];
+                $naziv = $film['imeKnjige'];
               ?>
-                <option value="<?php echo $naslov ?>"><?php echo $naslov ?></option>      
+                <option value="<?php echo $naziv ?>"><?php echo $naziv ?></option>      
             <?php
               }
             ?>
@@ -160,50 +161,33 @@ td{
           <button type="submit" name="vratiSad">Vrati</button>
       </form>
       <br>
-      
       </div>
-    
-
-      <script>
-        var svi = ["sviKorisnici" ,"unosKorisnika", "proveraIznajmljivanja", "iznajmljivanje"];
-        var blok1 = ["sviKorisnici", "proveraIznajmljivanja", "iznajmljivanje"];
-        var blok2 = ["sviKorisnici", "unosKorisnika", "iznajmljivanje"];
-        var blok3 = ["sviKorisnici", "unosKorisnika", "proveraIznajmljivanja"];
-
-      </script>
 </body>
 </html>
-
 <?php
-  //  upisivanje novog korisnika u bazu 
   if(isset($_POST['registruj']))
   {
     if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['vrstaCl'] !== "")
     {
         $korisnik = new Citalac($_POST['ime'], $_POST['prezime'], $_POST['vrstaCl']);
-        //provera da li postoji u bazi
         if(!$korisnik->postojiUBazi($link))
           $korisnik->upisiUBazu($link);
         else
-           echo "Korisnik vec postoji u bazi.";
+           echo "Korisnik već postoji u bazi.";
     }
-
   }
-
-  //provera koju knjigu je uzeo koji korisnik
-  if(isset($_POST['provera']))
+  if(isset($_POST['proveraZaduzenja']))
   {
     $vrednost = $_POST['listaKorisnika'];
     $povratniNiz = Citalac::iseciImePrezime($vrednost);
     $id = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     $rezultatUpita = UzeoKnjigu::vratiSpojenoCitalacKnjigaPisac($link);
-
     echo '<table class="iznajmljeni" border="2">';
     echo '<tr>';
       echo '<th>'; echo 'Ime' ; echo '</th>';
       echo '<th>'; echo 'Prezime' ; echo '</th>';
-      echo '<th>'; echo 'Knjiga' ; echo '</th>';
-      echo '<th>'; echo 'Pisac' ; echo '</th>';
+      echo '<th>'; echo 'Film' ; echo '</th>';
+      echo '<th>'; echo 'Reditelj' ; echo '</th>';
     echo '</tr>';
     while($korisnik = mysqli_fetch_array($rezultatUpita))
     {
@@ -219,49 +203,33 @@ td{
     }
     echo '</table>'; 
   }
-
-  //brisanje konkretnog citaoca
-  if(isset($_POST['brisanjeCitaoca']))
+  if(isset($_POST['obrisiKorisnika']))
   {
     $vrednost = $_POST['listaKorisnika'];
     $povratniNiz = Citalac::iseciImePrezime($vrednost);
     $id = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     Citalac::izbaciCitaoca($link, $id);
   }
-
-
-
-  //unos zaduzenja
   if(isset($_POST['iznajmiSad']))
   {
-    $imePrezime = $_POST['ponudakorisnika'];
-    $imeKnjige = $_POST['ponudaKnjiga'];
+    $imePrezime = $_POST['listaKor'];
+    $imeKnjige = $_POST['listaFilmova'];
     $idKnjige = Knjiga::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
     $povratniNiz = Citalac::iseciImePrezime($imePrezime);
     $korisnikID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    
     if(UzeoKnjigu::postojiParCitalacKnjiga($link, $korisnikID, $idKnjige))
-      die("Čitalac $imePrezime je već zadužio knjigu $imeKnjige.");
-
+      die("<h3>Korisnik $imePrezime je već iznajmio film $imeKnjige.</h3>");
     UzeoKnjigu::ubaciParCitalacKnjigaUBazu($link, $korisnikID, $idKnjige);
-    
   }
-  //vratiSad citaoca
   if(isset($_POST['vratiSad']))
   {
-    $imePrezime = $_POST['ponudakorisnika'];
-    $imeKnjige = $_POST['ponudaKnjiga'];
+    $imePrezime = $_POST['listaKor'];
+    $imeKnjige = $_POST['listaFilmova'];
     $idKnjige = Knjiga::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
     $povratniNiz = Citalac::iseciImePrezime($imePrezime);
     $korisnikID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    
     if(!UzeoKnjigu::postojiParCitalacKnjiga($link, $korisnikID, $idKnjige))
-      die("Čitalac $imePrezime nije uzeo knjigu $imeKnjige.");
-
+      die("<h3>Korisnik $imePrezime nije iznajmio film $imeKnjige.<h3>");
     UzeoKnjigu::izbaciParCitalacKnjiga($link, $korisnikID, $idKnjige);
-
   }
-
-
-
 ?>
