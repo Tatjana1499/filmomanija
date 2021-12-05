@@ -30,14 +30,35 @@
   font-size: x-large;
 
   }
-  th{
-     background-color: #ffb266;
+  .frmFilmPoReditelju{
+    position: relative;
+  left: 50%;
+  width: 500px;
+} 
+  table{
+    position: fixed;;
+   bottom: 450px;
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    background-color: purple;
+     color: white;
   }
-
-  td{
-     background-color: #FFCC99;
-  }
-
+.frmDodajFilm{
+  position: relative;
+  left: 50%;
+  width: 600px;
+}
+.frmRediteljPoDrzavi{
+  position: relative;
+  left: 50%;
+  width: 500px;
+}
+.frmFilmPoZanru{
+  position: relative;
+  left: 50%;
+  width: 500px;
+}
 </style>
 <script>
     src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -52,7 +73,7 @@
    <p>Dostupni
    <a href="sviFilmovi.php" target="_blank">filmovi</a></p>
    </div>
-   <div id="FormaDodavanjeKnjige">
+   <div class="frmDodajFilm">
    <form action="" method="post">
    <label for="">Dodaj novi film: </label><br><br>
      <label for="novaKnjiga">Naziv filma: </label>
@@ -90,6 +111,7 @@
      <input type="text" name="imeNovogPisca" id="imeNovogPisca">
      <label for="prezimeNovogPisca">Prezime reditelja: </label>
      <input type="text" name="prezimeNovogPisca" id="prezimeNovogPisca">
+     <br> <br>
      <label for="zemljaPisca">Država: </label>
      <input type="text" name="zemljaPisca" id="zemljaPisca">
      <br><br>
@@ -107,11 +129,9 @@
    </div>
    <br>
    
-   <div id="FormaListanjeKnjigaPoPiscima">
-   <!-- forma za proveru knjiga po piscima -->
+   <div class="frmFilmPoReditelju">
    <form action="" method="post">
    <label for="">Pogledajte koje knjige imamo u ponudi od strane konkretnog pisca: </label><br><br>
-   <!-- <p>Pogledajte koje knjige imamo u ponudi od strane konkretnog pisca: </p> -->
      <label for="pisci">Pisac: </label>
      <select name="pisci" id="pisci">
       <?php 
@@ -125,17 +145,15 @@
           }
         ?>
      </select>
-     <button type="submit" name="proveriKnjige">Proveri</button>
+     <button type="submit" name="proveriKnjige">Odaberi</button>
    </form>
    <br>
    </div>
    <br>
-   <div id="FormaListanjePisacaPoZemljama">
-   <!-- forma za proveru pisaca po zemljama -->
+   <div class="frmRediteljPoDrzavi">
    <form action="" method="post">
-   <label for="">Proverite koji sve pisci dolaze iz konkretne zemlje: </label><br><br>
-   <!-- <p>Proverite koji sve pisci dolaze iz konkretne zemlje: </p> -->
-     <label for="zemlje">Zemlja: </label>
+   <label for="">Pogledajte koji reditelji dolaze iz odabrane države: </label><br><br>
+     <label for="zemlje">Država: </label>
      <select name="zemlje" id="zemlje">
           <?php
             $rez = Pisac::vratiSveZemljeRazlicito($link);
@@ -148,17 +166,15 @@
               }
           ?>
      </select>
-     <button type="submit" name="proveriZemlje">Proveri</button>
+     <button type="submit" name="proveriZemlje">Odaberi</button>
    </form>
    <br>
    </div>
    <br>
-   <div id="FormaListanjeKnjigaPoZanrovima">
-   <!-- forma za proveru knjiga po zanrovima -->
+   <div class="frmFilmPoZanru">
    <form action="" method="post">
-   <label for="">Proverite koje sve knjige spadaju u konkretni žanr: </label><br><br>
-   <!-- <p>Proverite koje sve knjige spadaju u konkretni žanr: </p> -->
-   <label for="zanrovi">Zanr: </label>
+   <label for="">Pogledajte filmove odabranog žanra: </label><br><br>
+   <label for="zanrovi">Žanr: </label>
    <select name="zanrovi" id="zanrovi">
       <?php
         $rezupita = Zanr::vratiSvaImenaZanrovaRazlicito($link);
@@ -171,7 +187,7 @@
         }
       ?>
    </select>
-   <button type="submit" name="proveriZanr">Proveri</button>
+   <button type="submit" name="proveriZanr">Odaberi</button>
    </form>
    <br>
    </div>
