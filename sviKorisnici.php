@@ -31,7 +31,8 @@
   }
   h1{
    position: relative;
-    left: 700px;
+    left: 1000px;
+    width: 200px;
   }
 </style>
 </head>

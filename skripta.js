@@ -16,7 +16,7 @@ function prikaziBlokove(nizBlokova, div) {
 
 function proveriFormuZaKnjige() {
   if (document.getElementById("novaKnjiga").value == "") {
-    confirm("Morate uneti naslov knjige!");
+    confirm("Unesi naziv filma.");
     return;
   }
 
@@ -61,34 +61,35 @@ function proveriFormuZaUnosCitaoca() {
   if (
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("vrstaCl").value == "") ||
+      document.getElementById("kategorija").value == "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("vrstaCl").value == "") ||
+      document.getElementById("kategorija").value == "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value != "" &&
-      document.getElementById("vrstaCl").value == "") ||
+      document.getElementById("kategorija").value == "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("vrstaCl").value != "") ||
+      document.getElementById("kategorija").value != "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value != "" &&
-      document.getElementById("vrstaCl").value == "") ||
+      document.getElementById("kategorija").value == "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("vrstaCl").value != "") ||
+      document.getElementById("kategorija").value != "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value !== "" &&
-      document.getElementById("vrstaCl").value != "")
+      document.getElementById("kategorija").value != "")
   ) {
-    alert("Popuni sva polja.");
+    alert("Popuni sva polja za unos korisnika.");
     return;
   }
+
   if (
-    document.getElementById("vrstaCl").value > 3 ||
-    document.getElementById("vrstaCl").value == 0
+    document.getElementById("kategorija").value > 3 ||
+    document.getElementById("kategorija").value == 0
   ) {
-    alert("Vrsta članstva mora imati vrednost 1, 2 ili 3.");
+    alert("Vrsta članstva mora biti 1, 2 ili 3.");
   }
 }
 

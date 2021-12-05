@@ -1,3 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+h2{
+  position: relative;
+background-color: purple;
+  left: 60%;
+ width: 400px;
+ text-align: center;
+}
+</style>
+</head>
+<body>
+</body>
+</html>
+
+
 <?php
 
  class Citalac
@@ -24,9 +46,9 @@
       VALUES('$this->ime', '$this->prezime', '$this->kategorijaClanstvaID')";
       $rez = mysqli_query($baza, $sqlUpit);
       if($rez)
-         echo "Čitalac je uspešno ubačen u bazu!".'<br>';
+         echo "<h2>Korisnik je dodat.</h2>";
       else
-         echo "Došlo je do greške prilikom ubacivanja čitaoca!".'<br>'; 
+         echo "<h2>Greška, korisnik nije dodat.</h2>"; 
    }
 
     //da li citalac postoji u bazi
@@ -77,11 +99,10 @@
         $sqlUpit = "DELETE FROM citalac WHERE citalacID = $citalacID";
         $rez = mysqli_query($baza, $sqlUpit);
         if($rez)
-          echo "Čitalac je uspešno izbačen!".'<br>';
+          echo "<h2>Korisnik je izbačen.</h2>";
         else
-          echo "Došlo je do greške prilikom izbacivanja!".'<br>';        
+          echo "<h2>Greška, korisnik nije izbačen.</h2>";        
      }
-
  }
 
  class Knjiga
@@ -125,9 +146,9 @@
       VALUES('$this->imeKnjige', '$this->pisacID', '$this->zanrID')";
       $rezultatUpita = mysqli_query($baza, $sqlUpit);
       if($rezultatUpita)
-        echo "Knjiga je uspešno dodata u bazu!".'<br>';
+        echo "<h2>Film je dodat.</h2>";
       else
-        echo "Došlo je do greške prilikom dodavanja knjige!".'<br>';
+        echo "<h2>Greška, film nije dodat.</h2>";
     }
 
     //izbacivanje knjige iz baze
@@ -137,9 +158,9 @@
       AND pisacID = '$this->pisacID' AND zanrID = '$this->zanrID'";
       $rez = mysqli_query($baza, $sqlUpit);
       if($rez)
-        echo "Knjiga je uspešno obrisana iz baze!".'<br>';
+        echo "<h2>Film je obrisan.</h2>";
       else  
-        echo "Došlo je do greške prilikom brisanja knjige iz baze!".'<br>';
+        echo "<h2>Greška, film nije obrisan.</h2>";
     }
 
     function postojiKnjiga($baza)
@@ -227,9 +248,9 @@
      $sqlUpit = "INSERT INTO uzeoKnjigu(citalacID, idKnjige) VALUES('$citalacID', '$idKnjige')";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "Čitalac je uspešno zadužio knjigu.".'<br>';
+       echo "<h2>Korisnik je iznajmio film.</h2>";
      else
-       echo "Došlo je do greške prilikom zaduživanja knjiga.".'<br>';
+       echo "<h2>Greška, korisnik nije uspeo da iznajmi film.</h2>";
    }
 
    static function izbaciParCitalacKnjiga($baza, $citalacID, $idKnjige)
@@ -237,9 +258,9 @@
      $sqlUpit = "DELETE FROM uzeoKnjigu WHERE citalacID = $citalacID AND idKnjige = $idKnjige";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "Čitalac je uspešno razdužio knjigu.".'<br>';
+       echo "<h2>Korisnik je vratio film.</h2>";
      else
-       echo "Došlo je do greške prilikom razduživanja knjige.".'<br>';
+       echo "<h2>Greška, korisnik nije uspeo da vrati film.</h2>";
    }
 
  }
@@ -283,9 +304,9 @@
      VALUE ('$this->imePisca', '$this->prezimePisca', '$this->zemljaPorekla')";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "Pisac je uspešno ubačen u bazu!".'<br>';
+       echo "<h2>Reditelj je dodat.</h2>";
      else
-       echo "Greška prilikom izvršavanja ubacivanja!".'<br>';
+       echo "<h2>Greška, reditelj nije dodat.</h2>";
    }
 
    static function vratiSveZemljeRazlicito($baza)
@@ -348,9 +369,9 @@
      $sqlUpit = "INSERT INTO zanr(imeZanra) VALUES('$this->imeZanra')";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "Žanr je uspešno unet!".'<br>';
+       echo "<h2>Žanr je uspešno dodat.</h2>";
      else
-       echo "Došlo je do greške prilikom unosa žanra!".'<br>';
+       echo "<h2>Došlo je do greške, žanr nije dodat.</h2>";
    }
  }
 ?>

@@ -97,11 +97,12 @@ h3{
         <input type="text" name="ime" id="ime" placeholder="Unesite ime"> <br><br>
         <label for="prezime">Prezime: </label><br>
         <input type="text" name="prezime" id="prezime" placeholder="Unesite prezime"> <br><br>
-        <label for="vrstaCl">Vrsta članstva: </label><br>
-        <input type="text" name="vrstaCl" id="vrstaCl" placeholder="Unesite vrstu članstva"> <br>
+        <label for="kategorija">Vrsta članstva: </label><br>
+        <input type="text" name="kategorija" id="kategorija" placeholder="Unesite vrstu članstva"> <br>
         <br>
-        <button type="submit" name="registruj"onclick="proveriFormuZaUnosCitaoca()">Unesi u bazu</button>
+        <button  type="submit" onclick="proveriFormuZaUnosCitaoca()" name="registruj" >Unesi u bazu</button>
         <br>
+        
     </form>
     <br>
     </div>
@@ -167,9 +168,9 @@ h3{
 <?php
   if(isset($_POST['registruj']))
   {
-    if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['vrstaCl'] !== "")
+    if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['kategorija'] !== "")
     {
-        $korisnik = new Citalac($_POST['ime'], $_POST['prezime'], $_POST['vrstaCl']);
+        $korisnik = new Citalac($_POST['ime'], $_POST['prezime'], $_POST['kategorija']);
         if(!$korisnik->postojiUBazi($link))
           $korisnik->upisiUBazu($link);
         else
