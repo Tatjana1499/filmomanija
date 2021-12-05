@@ -1,47 +1,35 @@
 <?php include "konekcija.php"?>
 <?php include "klase.php"?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
  <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Literatura</title>
- 
+ <title>Film</title>
 <style>
-  
   a{
-    color: black;
+    color: lightblue;
     text-decoration: none;
   }
   label{
-    background-color: #FFFF99;
+    background-color: purple;
   }
-
   body {
-  padding: 0;
+    padding: 0;
   font-weight: 10px;
   background: url("slika1.jpg");
-  color: #990000;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
   }
+  .prikazFilmova{
+    position: relative;
+  left: 85%;
+  width: 200px;
+  font-size: x-large;
 
-  input{
-     background-color: #FFCC99;
-     color: black;
   }
-
-  select{
-    background-color: #FFCC99;
-     color: black;
-  }
-
-  button{
-    font-weight: bold;
-    background-color: #ffb266;
-    color: black;
-  }
-
   th{
      background-color: #ffb266;
   }
@@ -60,29 +48,16 @@
 
 </head>
 <body>
-   <!-- tabela svih knjiga koje postoje u biblioteci -->
-   <div id="PrikazSvihKnjiga">
-   <p>Ukoliko želite da vidite sve knjige u posedu naše biblioteke, kliknite na
-   <a href="sveknjige.php" target="_blank">naše knjige</a>.</p>
+   <div class="prikazFilmova">
+   <p>Dostupni
+   <a href="sviFilmovi.php" target="_blank">filmovi</a></p>
    </div>
-
-    <!-- div za prikazSvih -->
-   <div id="divZaPrikazSvih" style="display:none">
-    <label for="rbPrikaz">Prikaži sve: </label>
-    <a href="literatura.php"><input type="submit" value="Potvrdi" name="rbPrikaz" id="rbPrikaz"></a>
-   </div>
-   <br>
-
-   <!-- forma za dodavanje nove knjige -->
    <div id="FormaDodavanjeKnjige">
-   <fieldset>
    <form action="" method="post">
-   <label for="">Dodajte novu knjigu: </label><br><br>
-   <!-- <p>Dodajte novu knjigu: </p> -->
-     <label for="novaKnjiga">Knjiga: </label>
+   <label for="">Dodaj novi film: </label><br><br>
+     <label for="novaKnjiga">Naziv filma: </label>
      <input type="text" name="novaKnjiga" id="novaKnjiga">
-     <!-- padajuca lista svih pisaca -->
-     <label for="sviPisci">Pisac: </label>
+     <label for="sviPisci">Reditelj: </label>
      <select name="sviPisci" id="sviPisci">
        <?php 
           $rezultatUpita = Pisac::vratiSvePisce($link);
@@ -95,8 +70,7 @@
           }
         ?>
      </select>
-     <!-- padajuca lista svih zanrova -->
-     <label for="sviZanrovi">Zanr: </label>
+     <label for="sviZanrovi">Žanr: </label>
      <select name="sviZanrovi" id="sviZanrovi">
         <?php
           $rezultatUpita = Zanr::vratiSveZanrove($link);
@@ -109,38 +83,32 @@
           }
         ?>
      </select>
-     <!-- dugme za brisanje knjige -->
-     <!-- u slucaju da mora da se dodaju novi pisac ili zanr -->
      </label>
      <br><br>
-     <label for="">Ukoliko pisac ne postoji u padajućoj listi, dodajte ga ovde: </label><br><br>
-     <!-- <p>Ukoliko pisac ne postoji u padajućoj listi, dodajte ga ovde: </p> -->
-     <label for="imeNovogPisca">Ime pisca: </label>
+     <label for="">Ukoliko nema reditelja u padajućoj listi: </label><br><br>
+     <label for="imeNovogPisca">Ime reditelja: </label>
      <input type="text" name="imeNovogPisca" id="imeNovogPisca">
-     <label for="prezimeNovogPisca">Prezime pisca: </label>
+     <label for="prezimeNovogPisca">Prezime reditelja: </label>
      <input type="text" name="prezimeNovogPisca" id="prezimeNovogPisca">
-     <label for="zemljaPisca">Zemlja pisca: </label>
+     <label for="zemljaPisca">Država: </label>
      <input type="text" name="zemljaPisca" id="zemljaPisca">
      <br><br>
-     <label for="">Ukoliko žanr ne postoji u padajućoj listi, dodajte ga ovde: </label><br><br>
-     <!-- <p>Ukoliko žanr ne postoji u padajućoj listi, dodajte ga ovde: </p> -->
+     <label for="">Ukoliko nema žanra u padajućoj listi: </label><br><br>
      <label for="noviZanr">Žanr: </label>
      <input type="text" name="noviZanr" id="noviZanr">
      <br>
      <br>
      <!-- dugme za dodavanje knjige -->
-     <button type="submit" name="dodavanjeKnjige" onclick="proveriFormuZaKnjige()">Dodaj knjigu</button>
-     <button type="submit" name="brisanje" onclick="proveriFormuZaBrisanjeKnjige()">Obriši knjigu</button>
+     <button type="submit" name="dodavanjeKnjige" onclick="proveriFormuZaKnjige()">Dodaj film</button>
+     <button type="submit" name="brisanje" onclick="proveriFormuZaBrisanjeKnjige()">Obriši film</button>
    </form>
    <br>
-   <input type="submit" value="Rezultat" onclick="skloniBlokove(blokovi1, 'divZaPrikazSvih')">
-   </fieldset>
+ 
    </div>
    <br>
    
    <div id="FormaListanjeKnjigaPoPiscima">
    <!-- forma za proveru knjiga po piscima -->
-   <fieldset>
    <form action="" method="post">
    <label for="">Pogledajte koje knjige imamo u ponudi od strane konkretnog pisca: </label><br><br>
    <!-- <p>Pogledajte koje knjige imamo u ponudi od strane konkretnog pisca: </p> -->
@@ -160,14 +128,10 @@
      <button type="submit" name="proveriKnjige">Proveri</button>
    </form>
    <br>
-   <input type="submit" value="Rezultat" onclick="skloniBlokove(blokovi2, 'divZaPrikazSvih')">
-   </fieldset>
    </div>
    <br>
-
    <div id="FormaListanjePisacaPoZemljama">
    <!-- forma za proveru pisaca po zemljama -->
-   <fieldset>
    <form action="" method="post">
    <label for="">Proverite koji sve pisci dolaze iz konkretne zemlje: </label><br><br>
    <!-- <p>Proverite koji sve pisci dolaze iz konkretne zemlje: </p> -->
@@ -187,15 +151,10 @@
      <button type="submit" name="proveriZemlje">Proveri</button>
    </form>
    <br>
-   <input type="submit" value="Rezultat" onclick="skloniBlokove(blokovi3, 'divZaPrikazSvih')">
-   </fieldset>
    </div>
    <br>
-   
-   
    <div id="FormaListanjeKnjigaPoZanrovima">
    <!-- forma za proveru knjiga po zanrovima -->
-   <fieldset>
    <form action="" method="post">
    <label for="">Proverite koje sve knjige spadaju u konkretni žanr: </label><br><br>
    <!-- <p>Proverite koje sve knjige spadaju u konkretni žanr: </p> -->
@@ -211,40 +170,13 @@
       <?php
         }
       ?>
-      
    </select>
    <button type="submit" name="proveriZanr">Proveri</button>
    </form>
    <br>
-   <input type="submit" value="Rezultat" onclick="skloniBlokove(blokovi4, 'divZaPrikazSvih')">
-    </fieldset>
    </div>
-
-
-   <!-- javascript -->
-   <script>
-      var blokovi1 = ["PrikazSvihKnjiga", "FormaListanjeKnjigaPoPiscima", 
-      "FormaListanjePisacaPoZemljama", "FormaListanjeKnjigaPoZanrovima"];
-      
-      var blokovi2 = ["PrikazSvihKnjiga", "FormaDodavanjeKnjige", 
-      "FormaListanjePisacaPoZemljama", "FormaListanjeKnjigaPoZanrovima"];
-
-      var blokovi3 = ["PrikazSvihKnjiga", "FormaListanjeKnjigaPoPiscima", 
-      "FormaDodavanjeKnjige", "FormaListanjeKnjigaPoZanrovima"];
-
-      var blokovi4 = ["PrikazSvihKnjiga", "FormaListanjeKnjigaPoPiscima", 
-      "FormaListanjePisacaPoZemljama", "FormaDodavanjeKnjige"];
-      
-      var sviBlokovi = ["PrikazSvihKnjiga", "FormaDodavanjeKnjige", "FormaListanjeKnjigaPoPiscima", 
-      "FormaListanjePisacaPoZemljama", "FormaListanjeKnjigaPoZanrovima"];
-
-   </script>
-
 </body>
 </html>
-
-
-
 <?php
    //dodavanje nove knjige u bazu
    if(isset($_POST['dodavanjeKnjige']))
