@@ -81,15 +81,14 @@ function proveriFormuZaUnosCitaoca() {
       document.getElementById("prezime").value !== "" &&
       document.getElementById("vrstaCl").value != "")
   ) {
-    alert("Morate popuniti sve podatke o čitaocu!");
+    alert("Popuni sva polja.");
     return;
   }
-
   if (
     document.getElementById("vrstaCl").value > 3 ||
     document.getElementById("vrstaCl").value == 0
   ) {
-    alert("Vrsta članstva mora biti u skupu vrednosti {1, 2, 3}!");
+    alert("Vrsta članstva mora imati vrednost 1, 2 ili 3.");
   }
 }
 
