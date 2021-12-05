@@ -83,7 +83,7 @@ h2 {
               output +=
                 "<ul>" +
                 "<li>ID: " +
-                reditelji[r].pisacID +
+                reditelji[r].rediteljID +
                 " </li>" +
                 "<li>ime: " +
                 reditelji[r].ime +

@@ -4,70 +4,51 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Svi čitaoci</title>
+   <title>Svi korisnici</title>
 <style>
- a{
-    color: black;
-    text-decoration: none;
-  }
-
-  /* body {
-  padding: 0;
-  font-weight: 10px;
-  background-color: rgb(65,105,225);
-  color: #000;
-  } */
-
   body {
-  padding: 0;
-  font-weight: 10px;
-  background: url("slika1.jpg");
-  color: #990000;
+      padding: 0;
+      font-weight: 10px;
+      background: url("slika1.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
   }
-
-  input{
-     background-color: #FFCC99;
-     color: black;
+  table{
+     width: 800px;
+     height: 400px;
+     position: relative;
+    left: 700px;
+    text-align: center;
   }
-
-  select{
-    background-color: #FFCC99;
-     color: black;
-  }
-
-  button{
-    font-weight: bold;
-    background-color: #ffb266;
-    color: black;
-  }
-
   th{
-     background-color: #ffb266;
+     background-color: purple;
+     color: white;
   }
-
   td{
-     background-color: #FFCC99;
+     background-color: purple;
+     color: white;
+  }
+  h1{
+     text-align: center; 
   }
 </style>
 </head>
 <body>
-   
 </body>
 </html>
-
-
 <?php
   include "konekcija.php";
-  echo "<h2>Svi naši čitaoci: </h2>";
+  echo "<h1>Svi korisnici: </h1>";
   $sqlUpit = "SELECT * FROM citalac c JOIN kategorijaclanstva k USING(kategorijaClanstvaID)";
   $rez = mysqli_query($link, $sqlUpit);
   if(!$rez)
-    die("Upit nije uspešno izvršen.");
+    die("Neuspešno učitavanje korisnika.");
   echo "<table border=2>";
      echo "<tr>";  
         echo "<th>"; echo "Ime";  echo "</th>";
         echo "<th>"; echo "Prezime";  echo "</th>";
-        echo "<th>"; echo "Kategorija clanstva";  echo "</th>";
+        echo "<th>"; echo "Vrsta članstva";  echo "</th>";
      echo "</tr>";
   while($korisnik = mysqli_fetch_array($rez))
   {

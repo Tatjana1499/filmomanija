@@ -16,6 +16,7 @@
   label{
     background-color: purple;
     color: white;
+    font-size: large;
   }
 
   body {
@@ -75,21 +76,12 @@
 </head>
 <body>
 
-    <!-- div za prikaz svih blokova -->
-    <div id="prikaziSveStoPostoji" style="display:none">
-      <label for="nmp">Prikaži sve: </label>
-      <a href="citalac.php"><input type="submit" value="Potvrdi" name="nmp"></a>
-    </div>
-    
-
-    <!-- prikaz svih citalaca -->
     <div id="sviKorisnici", class="sviKorisnici">
     <p>Spisak trenutnih
-     <a href="svicitaoci.php" target="_blank">korisnika</a>
+     <a href="sviKorisnici.php" target="_blank">korisnika</a>
     </p>
     </div>
 
-    <!-- forma za dodavananje citalaca -->
     <div id="unosKorisnika", class="unosKorisnika">
     
       <form action="" name="frmUnosKorisnika" method="post">
@@ -105,13 +97,11 @@
         <br>
     </form>
     <br>
-    <input type="submit" value="Rezultat" onclick="skloniBlokove(blok1, 'prikaziSveStoPostoji')">
   
     </div>
     <br>
 
     <div id="proveraIznajmljivanja", class="proveraIznajmljivanja">
-      <!-- forma za proveru -->
       
       <form action="" name="proveravanje" method="post">
       <label for="">Proverite zaduženje: </label><br><br>
@@ -132,7 +122,6 @@
         <button type="submit" name="brisanjeCitaoca" value="Obriši">Obriši</button>
       </form>
       <br>
-     <input type="submit" value="Rezultat" onclick="skloniBlokove(blok2, 'prikaziSveStoPostoji')">
       
       </div>
       <br>
@@ -172,7 +161,6 @@
           <button type="submit" name="vratiSad">Vrati</button>
       </form>
       <br>
-      <input type="submit" value="Rezultat" onclick="skloniBlokove(blok2, 'prikaziSveStoPostoji')">
       
       </div>
     

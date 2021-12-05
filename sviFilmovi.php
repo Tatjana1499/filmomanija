@@ -10,14 +10,6 @@
     color: black;
     text-decoration: none;
   }
-
-  /* body {
-  padding: 0;
-  font-weight: 10px;
-  background-color: rgb(65,105,225);
-  color: #000;
-  } */
-
   body {
   padding: 0;
   font-weight: 10px;

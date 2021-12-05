@@ -1,27 +1,27 @@
 [
   {
-    "pisacID": 1,
-    "ime": "Haled",
-    "prezime": "Hoseini"
+    "rediteljID": 1,
+    "ime": "Christopher",
+    "prezime": "Nolan"
   },
   {
-    "pisacID": 2,
-    "ime": "Danilo",
-    "prezime": "Kiš"
+    "rediteljID": 2,
+    "ime": "Steven",
+    "prezime": "Spielberg"
   },
   {
-    "pisacID": 3,
-    "ime": "Herman",
-    "prezime": "Hese"
+    "rediteljID": 3,
+    "ime": "Quentin",
+    "prezime": "Tarantino"
   },
   {
-    "pisacID": 4,
-    "ime": "Haruki",
-    "prezime": "Murakami"
+    "rediteljID": 4,
+    "ime": "Martin",
+    "prezime": "Scorsese"
   },
   {
-    "pisacID": 5,
-    "ime": "Miloš",
-    "prezime": "Crnjanski"
+    "rediteljID": 5,
+    "ime": "David",
+    "prezime": "Fincher"
   }
 ]

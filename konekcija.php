@@ -1,9 +1,8 @@
 <?php
-  $serverName = "localhost";
-  $userName = "root";
-  $password = "";
-
-  $link = mysqli_connect($serverName, $userName, $password);
+  $host = "localhost";
+  $user = "root";
+  $pass = "";
+  $link = mysqli_connect($host, $user, $pass);
   mysqli_select_db($link, "filmomanija");
 
 ?>
