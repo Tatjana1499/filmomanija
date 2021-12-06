@@ -13,6 +13,13 @@ background-color: purple;
  width: 400px;
  text-align: center;
 }
+h4{
+  position: relative;
+background-color: purple;
+ top:-600px;
+ width: 400px;
+ text-align: center;
+}
 </style>
 </head>
 <body>
@@ -146,9 +153,9 @@ background-color: purple;
       VALUES('$this->imeKnjige', '$this->pisacID', '$this->zanrID')";
       $rezultatUpita = mysqli_query($baza, $sqlUpit);
       if($rezultatUpita)
-        echo "<h2>Film je dodat.</h2>";
+        echo "<h4>Film je dodat.</h4>";
       else
-        echo "<h2>Greška, film nije dodat.</h2>";
+        echo "<h4>Greška, film nije dodat.</h4>";
     }
 
     //izbacivanje knjige iz baze
@@ -158,9 +165,9 @@ background-color: purple;
       AND pisacID = '$this->pisacID' AND zanrID = '$this->zanrID'";
       $rez = mysqli_query($baza, $sqlUpit);
       if($rez)
-        echo "<h2>Film je obrisan.</h2>";
+        echo "<h4>Film je obrisan.</h4>";
       else  
-        echo "<h2>Greška, film nije obrisan.</h2>";
+        echo "<h4>Greška, film nije obrisan.</h4>";
     }
 
     function postojiKnjiga($baza)
@@ -304,9 +311,9 @@ background-color: purple;
      VALUE ('$this->imePisca', '$this->prezimePisca', '$this->zemljaPorekla')";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "<h2>Reditelj je dodat.</h2>";
+       echo "<h4>Reditelj je dodat.</h4>";
      else
-       echo "<h2>Greška, reditelj nije dodat.</h2>";
+       echo "<h4>Greška, reditelj nije dodat.</h4>";
    }
 
    static function vratiSveZemljeRazlicito($baza)
@@ -369,9 +376,9 @@ background-color: purple;
      $sqlUpit = "INSERT INTO zanr(imeZanra) VALUES('$this->imeZanra')";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "<h2>Žanr je uspešno dodat.</h2>";
+       echo "<h4>Žanr je uspešno dodat.</h4>";
      else
-       echo "<h2>Došlo je do greške, žanr nije dodat.</h2>";
+       echo "<h4>Došlo je do greške, žanr nije dodat.</h4>";
    }
  }
 ?>

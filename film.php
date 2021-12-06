@@ -28,7 +28,6 @@
   left: 85%;
   width: 200px;
   font-size: x-large;
-
   }
   .frmFilmPoReditelju{
     position: relative;
@@ -66,7 +65,6 @@
     crossorigin="anonymous">
 </script>
 <script src="skripta.js"></script>
-
 </head>
 <body>
    <div class="prikazFilmova">
@@ -76,30 +74,30 @@
    <div class="frmDodajFilm">
    <form action="" method="post">
    <label for="">Dodaj novi film: </label><br><br>
-     <label for="novaKnjiga">Naziv filma: </label>
-     <input type="text" name="novaKnjiga" id="novaKnjiga">
-     <label for="sviPisci">Reditelj: </label>
-     <select name="sviPisci" id="sviPisci">
+     <label for="nazivFilma">Naziv filma: </label>
+     <input type="text" name="nazivFilma" id="nazivFilma">
+     <label for="cmbReditelji">Reditelj: </label>
+     <select name="cmbReditelji" id="cmbReditelji">
        <?php 
-          $rezultatUpita = Pisac::vratiSvePisce($link);
-          while($pisac = mysqli_fetch_array($rezultatUpita))
+          $rez = Pisac::vratiSvePisce($link);
+          while($reditelj = mysqli_fetch_array($rez))
           {
-            $imePrezime = $pisac['imePisca'].' '.$pisac['prezimePisca'];
+            $imePrezime = $reditelj['imePisca'].' '.$reditelj['prezimePisca'];
         ?>
             <option value="<?php echo $imePrezime ?>"><?php echo $imePrezime ?></option>
         <?php
           }
         ?>
      </select>
-     <label for="sviZanrovi">Žanr: </label>
-     <select name="sviZanrovi" id="sviZanrovi">
+     <label for="listaZanrova">Žanr: </label>
+     <select name="listaZanrova" id="listaZanrova">
         <?php
-          $rezultatUpita = Zanr::vratiSveZanrove($link);
-          while($zanr = mysqli_fetch_array($rezultatUpita))
+          $rez = Zanr::vratiSveZanrove($link);
+          while($zanr = mysqli_fetch_array($rez))
           {
-            $imeZanra = $zanr['imeZanra'];
+            $nazivZanra = $zanr['imeZanra'];
         ?>
-            <option value="<?php echo $imeZanra ?>"><?php echo $imeZanra?></option>
+            <option value="<?php echo $nazivZanra ?>"><?php echo $nazivZanra?></option>
         <?php
           }
         ?>
@@ -107,45 +105,42 @@
      </label>
      <br><br>
      <label for="">Ukoliko nema reditelja u padajućoj listi: </label><br><br>
-     <label for="imeNovogPisca">Ime reditelja: </label>
-     <input type="text" name="imeNovogPisca" id="imeNovogPisca">
-     <label for="prezimeNovogPisca">Prezime reditelja: </label>
-     <input type="text" name="prezimeNovogPisca" id="prezimeNovogPisca">
+     <label for="imeNovogRed">Ime reditelja: </label>
+     <input type="text" name="imeNovogRed" id="imeNovogRed">
+     <label for="prezimeNovogRed">Prezime reditelja: </label>
+     <input type="text" name="prezimeNovogRed" id="prezimeNovogRed">
      <br> <br>
-     <label for="zemljaPisca">Država: </label>
-     <input type="text" name="zemljaPisca" id="zemljaPisca">
+     <label for="drzavaRed">Država: </label>
+     <input type="text" name="drzavaRed" id="drzavaRed">
      <br><br>
      <label for="">Ukoliko nema žanra u padajućoj listi: </label><br><br>
      <label for="noviZanr">Žanr: </label>
      <input type="text" name="noviZanr" id="noviZanr">
      <br>
      <br>
-     <!-- dugme za dodavanje knjige -->
-     <button type="submit" name="dodavanjeKnjige" onclick="proveriFormuZaKnjige()">Dodaj film</button>
+     <button type="submit" name="dodajFilm" onclick="proveriFormuZaKnjige()">Dodaj film</button>
      <button type="submit" name="brisanje" onclick="proveriFormuZaBrisanjeKnjige()">Obriši film</button>
    </form>
    <br>
- 
    </div>
    <br>
-   
    <div class="frmFilmPoReditelju">
    <form action="" method="post">
-   <label for="">Pogledajte koje knjige imamo u ponudi od strane konkretnog pisca: </label><br><br>
-     <label for="pisci">Pisac: </label>
-     <select name="pisci" id="pisci">
+   <label for="">Filmovi režisirani od odabranog reditelja: </label><br><br>
+     <label for="reditelji">Reditelj: </label>
+     <select name="reditelji" id="reditelji">
       <?php 
-          $rezultatUpita = Pisac::vratiSvePisce($link);
-          while($pisac = mysqli_fetch_array($rezultatUpita))
+          $rez = Pisac::vratiSvePisce($link);
+          while($reditelj = mysqli_fetch_array($rez))
           {
-            $imePrezime = $pisac['imePisca'].' '.$pisac['prezimePisca'];
+            $imePrezime = $reditelj['imePisca'].' '.$reditelj['prezimePisca'];
         ?>
             <option value="<?php echo $imePrezime ?>"><?php echo $imePrezime ?></option>
         <?php
           }
         ?>
      </select>
-     <button type="submit" name="proveriKnjige">Odaberi</button>
+     <button type="submit" name="nadjiFilmove">Odaberi</button>
    </form>
    <br>
    </div>
@@ -153,20 +148,20 @@
    <div class="frmRediteljPoDrzavi">
    <form action="" method="post">
    <label for="">Pogledajte koji reditelji dolaze iz odabrane države: </label><br><br>
-     <label for="zemlje">Država: </label>
-     <select name="zemlje" id="zemlje">
+     <label for="drzave">Država: </label>
+     <select name="drzave" id="drzave">
           <?php
             $rez = Pisac::vratiSveZemljeRazlicito($link);
-            while($redTabele = mysqli_fetch_array($rez))
+            while($zemlje = mysqli_fetch_array($rez))
               {
-                $zemlja = $redTabele['zemljaPorekla'];
+                $zemlja = $zemlje['zemljaPorekla'];
           ?>
               <option value="<?php echo $zemlja ?>"><?php echo $zemlja ?></option>
           <?php      
               }
           ?>
      </select>
-     <button type="submit" name="proveriZemlje">Odaberi</button>
+     <button type="submit" name="nadjiReditelja">Odaberi</button>
    </form>
    <br>
    </div>
@@ -177,12 +172,12 @@
    <label for="zanrovi">Žanr: </label>
    <select name="zanrovi" id="zanrovi">
       <?php
-        $rezupita = Zanr::vratiSvaImenaZanrovaRazlicito($link);
-        while($zanr = mysqli_fetch_array($rezupita))
+        $rez = Zanr::vratiSvaImenaZanrovaRazlicito($link);
+        while($zanr = mysqli_fetch_array($rez))
         {
-          $imeZanra = $zanr['imeZanra'];
+          $nazivZanra = $zanr['imeZanra'];
       ?>
-          <option value="<?php echo $imeZanra ?>"><?php echo $imeZanra ?></option>
+          <option value="<?php echo $nazivZanra ?>"><?php echo $nazivZanra ?></option>
       <?php
         }
       ?>
@@ -194,171 +189,129 @@
 </body>
 </html>
 <?php
-   //dodavanje nove knjige u bazu
-   if(isset($_POST['dodavanjeKnjige']))
+   if(isset($_POST['dodajFilm']))
    {
-      
-      $imePisca;
-      $prezimePisca;
-      $zemljaPisca;
-      $imeZanra;
-
-      $povratniNiz = Citalac::iseciImePrezime($_POST['sviPisci']);
-      $imePisca = $povratniNiz['ime'];
-      $prezimePisca = $povratniNiz['prezime'];
-      $imeZanra = $_POST['sviZanrovi'];
-
-      //izmeni imePisca, prezimePisca i zemljaPisca ako je u pitanju novi pisac
-      //dodaj novog pisca u bazu sa tim podacima
-      if($_POST['imeNovogPisca'] != '' && $_POST['prezimeNovogPisca'] != '' &&  $_POST['zemljaPisca'] != '')
+      $imeReditelja;
+      $prezimeReditelja;
+      $drzavaReditelja;
+      $nazivZanra;
+      $povratniNiz = Citalac::iseciImePrezime($_POST['cmbReditelji']);
+      $imeReditelja = $povratniNiz['ime'];
+      $prezimeReditelja = $povratniNiz['prezime'];
+      $nazivZanra = $_POST['listaZanrova'];
+      if($_POST['imeNovogRed'] != '' && $_POST['prezimeNovogRed'] != '' &&  $_POST['drzavaRed'] != '')
       {
-         $imePisca = $_POST['imeNovogPisca'];
-         $prezimePisca = $_POST['prezimeNovogPisca'];
-         $zemljaPisca = $_POST['zemljaPisca'];
-         $pisac = new Pisac($imePisca, $prezimePisca, $zemljaPisca);
-         $pisac->unesiPiscaUBazu($link);
+         $imeReditelja = $_POST['imeNovogRed'];
+         $prezimeReditelja = $_POST['prezimeNovogRed'];
+         $drzavaReditelja = $_POST['drzavaRed'];
+         $reditelj = new Pisac($imeReditelja, $prezimeReditelja, $drzavaReditelja);
+         $reditelj->unesiPiscaUBazu($link);
       }
-      
-      //izmeni imeZanra ako je u pitanju novi zanr
-      //kreiraj novi zanr u bazi sa tim imenom
       if($_POST['noviZanr'] != "")
       {
-         $imeZanra = $_POST['noviZanr'];
-         $zanr = new Zanr($imeZanra);
+         $nazivZanra = $_POST['noviZanr'];
+         $zanr = new Zanr($nazivZanra);
          if(!$zanr->postojiZanr($link))
            $zanr->unesiZanrUBazu($link);
          else
-           echo "Žanr postoji u bazi!".'<br>';
+           echo "Žanr već postoji.";
       }
-
-      //uzmi ID pisca sa tim imenom i prezimenom
-      $pisacID = Pisac::vratiIdPisca($link, $imePisca, $prezimePisca);
-      //uzmi ID zanra sa tim imenom
-      $zanrID = Zanr::vratiIdZanra($link, $imeZanra);
-      $imeKnjige = $_POST['novaKnjiga'];
-      if($imeKnjige == "")
+      $rediteljID = Pisac::vratiIdPisca($link, $imeReditelja, $prezimeReditelja);
+      $zanrID = Zanr::vratiIdZanra($link, $nazivZanra);
+      $nazivFilma = $_POST['nazivFilma'];
+      if($nazivFilma == "")
         die();
-
-      //dodavanje knjige
-      $knjiga = new Knjiga($imeKnjige, $pisacID, $zanrID);
-      if(!$knjiga->postojiKnjiga($link))
-        $knjiga->dodajKnjiguUBazu($link);
+      $film = new Knjiga($nazivFilma, $rediteljID, $zanrID);
+      if(!$film->postojiKnjiga($link))
+          $film->dodajKnjiguUBazu($link);
       else
-        echo "Knjiga već postoji u bazi!";     
-
+        echo "Film već postoji.";     
    }
-
-   //BrisanjeKnjige
    if(isset($_POST['brisanje']))
    {
-     $imeKnjige = $_POST['novaKnjiga'];
-     $povratniNiz = Citalac::iseciImePrezime($_POST['sviPisci']);
-     $imePisca = $povratniNiz['ime'];
-     $prezimePisca = $povratniNiz['prezime'];
-     $imeZanra = $_POST['sviZanrovi'];
-
-     if($_POST['imeNovogPisca'] != "" || $_POST['prezimeNovogPisca'] != "" ||
-     $_POST['zemljaPisca'] != "" || $_POST['noviZanr'] != "")
+     $nazivFilma = $_POST['nazivFilma'];
+     $povratniNiz = Citalac::iseciImePrezime($_POST['cmbReditelji']);
+     $imeReditelja = $povratniNiz['ime'];
+     $prezimeReditelja = $povratniNiz['prezime'];
+     $nazivZanra = $_POST['listaZanrova'];
+     if($_POST['imeNovogRed'] != "" || $_POST['prezimeNovogRed'] != "" || $_POST['drzavaRed'] != "" || $_POST['noviZanr'] != "")
       {
         die();
       }
-
-     $pisacID = Pisac::vratiIdPisca($link, $imePisca, $prezimePisca);
-     $zanrID = Zanr::vratiIdZanra($link, $imeZanra);
-    
-     $knjigaZaBrisanje = new Knjiga($imeKnjige, $pisacID, $zanrID);
-     $knjigaZaBrisanje->izbaciKnjiguIzBaze($link);
-
+     $rediteljID = Pisac::vratiIdPisca($link, $imeReditelja, $prezimeReditelja);
+     $zanrID = Zanr::vratiIdZanra($link, $nazivZanra);
+     $filmBrisi = new Knjiga($nazivFilma, $rediteljID, $zanrID);
+     $filmBrisi->izbaciKnjiguIzBaze($link);
      var_dump($_POST);
-
    }
-   //ideje : izlistaj pisce po zemljama, izlistaj knjige po piscima, knjige po zanrovima ...
-   
-   //izlistaj knjige po piscima
-   if(isset($_POST['proveriKnjige']))
+   if(isset($_POST['nadjiFilmove']))
    {
-      $imePrezimePisca = $_POST['pisci'];
-      $niz = Citalac::iseciImePrezime($imePrezimePisca);
-      $idPisca = Pisac::vratiIdPisca($link, $niz['ime'], $niz['prezime']);
-
+      $imePrezReditelja = $_POST['reditelji'];
+      $niz = Citalac::iseciImePrezime($imePrezReditelja);
+      $idReditelj = Pisac::vratiIdPisca($link, $niz['ime'], $niz['prezime']);
       echo "<table border=2>";
        echo "<tr>";
-         echo "<th>"; echo "Pisac"; echo "</th>";
-         echo "<th>"; echo "Naslov knjige"; echo "</th>";
-         echo "<th>"; echo "Zanr"; echo "</th>";
+         echo "<th>"; echo "Reditelj"; echo "</th>";
+         echo "<th>"; echo "Naziv filma"; echo "</th>";
+         echo "<th>"; echo "Žanr"; echo "</th>";
        echo "</tr>";
-         $rezUpita = Knjiga::vratiKnjigeSpojenoSaZanrom($link);
-         while($knjiga = mysqli_fetch_array($rezUpita))
+         $rez = Knjiga::vratiKnjigeSpojenoSaZanrom($link);
+         while($film = mysqli_fetch_array($rez))
          {
-           if($knjiga['pisacID'] == $idPisca)
+           if($film['pisacID'] == $idReditelj)
            {
               echo "<tr>";
                 echo "<td>"; echo $niz['ime'].' '.$niz['prezime']; echo "</td>";
-                echo "<td>"; echo $knjiga['imeKnjige']; echo "</td>";
-                echo "<td>"; echo $knjiga['imeZanra']; echo "</td>";
+                echo "<td>"; echo $film['imeKnjige']; echo "</td>";
+                echo "<td>"; echo $film['imeZanra']; echo "</td>";
               echo "</tr>";
            }
          }
-
       echo "</table>";
    }
-
-   //provera koji pisci dolaze iz koje zemlje
-   if(isset($_POST['proveriZemlje']))
+   if(isset($_POST['nadjiReditelja']))
    {
-
-      $zemlja = $_POST['zemlje'];
-      $rezulUpita = Pisac::vratiSvePisce($link);
-
+      $drzava = $_POST['drzave'];
+      $rez = Pisac::vratiSvePisce($link);
       echo "<table border=2>";
       echo "<tr>";
-         echo "<th>"; echo "Pisac"; echo "</th>";
-         echo "<th>"; echo "Zemlja"; echo "</th>";
+         echo "<th>"; echo "Reditelj"; echo "</th>";
+         echo "<th>"; echo "Država"; echo "</th>";
        echo "</tr>";
-
-      while($pisac = mysqli_fetch_array($rezulUpita))
+      while($reditelj = mysqli_fetch_array($rez))
       {
-          if($pisac['zemljaPorekla'] == $zemlja)
+          if($reditelj['zemljaPorekla'] == $drzava)
           {
             echo "<tr>";
-              echo "<td>"; echo $pisac['imePisca'].' '.$pisac['prezimePisca']; echo "</td>";
-              echo "<td>"; echo $pisac['zemljaPorekla']; echo "</td>";
+              echo "<td>"; echo $reditelj['imePisca'].' '.$reditelj['prezimePisca']; echo "</td>";
+              echo "<td>"; echo $reditelj['zemljaPorekla']; echo "</td>";
            echo "</tr>";
           }
       }
-
       echo "</table>";
    }
-
-   //izlistaj knjige po zanru
    if(isset($_POST['proveriZanr']))
    {
      echo "<br>";
-     $imeZanra = $_POST['zanrovi'];
+     $nazivZanra = $_POST['zanrovi'];
      $tabela = Knjiga::vratiKnjigeSpojenoSaZanromSpojenoSaPiscem($link);
-
      echo "<table border=2>";
      echo "<tr>";
-         echo "<th>"; echo "Naslov knjige"; echo "</th>";
-         echo "<th>"; echo "Pisac"; echo "</th>";
-         echo "<th>"; echo "Zanr"; echo "</th>";
+         echo "<th>"; echo "Naziv filma"; echo "</th>";
+         echo "<th>"; echo "Reditelj"; echo "</th>";
+         echo "<th>"; echo "Žanr"; echo "</th>";
      echo "</tr>";
-     
-     while($knjiga = mysqli_fetch_array($tabela))
+     while($film = mysqli_fetch_array($tabela))
      {
-        if($knjiga['imeZanra'] == $imeZanra)
+        if($film['imeZanra'] == $nazivZanra)
         {
           echo "<tr>";
-           echo "<td>"; echo $knjiga['imeKnjige']; echo "</td>";
-           echo "<td>"; echo $knjiga['imePisca'].' '.$knjiga['prezimePisca']; echo "</td>";
-           echo "<td>"; echo $knjiga['imeZanra']; echo "</td>";
+           echo "<td>"; echo $film['imeKnjige']; echo "</td>";
+           echo "<td>"; echo $film['imePisca'].' '.$film['prezimePisca']; echo "</td>";
+           echo "<td>"; echo $film['imeZanra']; echo "</td>";
           echo "</tr>";
         }
      }
-
      echo "</table>";
    }
-   
-
 ?>
-

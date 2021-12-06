@@ -95,6 +95,7 @@ function skloniDiv(div) {
   document.getElementById(div).innerHTML = "";
 }
 */
+/*
 function loadText() {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "oNama.txt", true);
@@ -108,3 +109,4 @@ function loadText() {
 
   xhr.send();
 }
+*/
