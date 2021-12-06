@@ -45,7 +45,7 @@
   $sqlUpit = "SELECT * FROM citalac c JOIN kategorijaclanstva k USING(kategorijaClanstvaID)";
   $rez = mysqli_query($link, $sqlUpit);
   if(!$rez)
-    die("Neuspešno učitavanje korisnika.");
+    die("Došlo je do greške prilikom učitavanja korisnika.");
   echo "<table border=2>";
      echo "<tr>";  
         echo "<th>"; echo "Ime";  echo "</th>";

@@ -70,14 +70,14 @@ h2 {
     <div id="tekstONama", class="tekstONama"></div>
     <div id="najpopRed", class="najpopRed"></div>
     <script>
-    //1. AJAX - ucitavanje iz json fajla
+    //AJAX - ucitavanje iz json fajla
     document.getElementById("btnNajReditelji").addEventListener("click", vratiReditelje);
     function vratiReditelje() {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "najpopularnijiReditelji.json", true);
         xhr.onload = function () {
           if (this.status == 200) {
-            var reditelji = JSON.parse(this.responseText); //funkcija koja je potrebna kad radis sa JSON objektom, da bi mogao da ga parsiras niz objekata u ovom slucaju, pa da pristupas poljima dot operatorom
+            var reditelji = JSON.parse(this.responseText); //parsiranje niza objekata zbog pristupa poljima dot operatorom
             var output = "";
             for (var r in reditelji) {
               output +=
@@ -98,14 +98,14 @@ h2 {
         };
         xhr.send();
       }
-    //2. AJAX
+    //AJAX - o nama
      document.getElementById("oNama").addEventListener("click", vratiONama);
     function vratiONama() {
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "oNama.txt", true);
       xhr.onload = function () {
         if (this.status == 200) {
-          document.getElementById("tekstONama").innerHTML = this.responseText; //ispis teksta
+          document.getElementById("tekstONama").innerHTML = this.responseText;
         }
       };
       xhr.send();

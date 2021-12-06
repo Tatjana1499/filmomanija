@@ -39,19 +39,19 @@ table{
   $sqlUpit = "SELECT * FROM knjiga JOIN pisac USING(pisacID) JOIN zanr USING(zanrID)";
   $rez = mysqli_query($link, $sqlUpit);
   if(!$rez)
-    die ("Upit nije uspešno izvršen.");
+    die ("Došlo je do greške.");
   echo "<table border=2>";
   echo "<tr>";
     echo "<th>"; echo "Naziv filma"; "</th>";
     echo "<th>"; echo "Reditelj"; "</th>";
     echo "<th>"; echo "Žanr"; echo "</th>";
   echo "</tr>";  
-    while($knjiga = mysqli_fetch_array($rez))
+    while($film = mysqli_fetch_array($rez))
     {
       echo "<tr>";
-         echo "<td>"; echo $knjiga['imeKnjige'];  echo "</td>";
-         echo "<td>"; echo $knjiga['imePisca'].' '.$knjiga['prezimePisca'];
-         echo "<td>"; echo $knjiga['imeZanra'];  echo "</td>";
+         echo "<td>"; echo $film['imeKnjige'];  echo "</td>";
+         echo "<td>"; echo $film['imePisca'].' '.$film['prezimePisca'];
+         echo "<td>"; echo $film['imeZanra'];  echo "</td>";
       echo "</tr>";
     }
   echo "</table>";

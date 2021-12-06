@@ -72,7 +72,7 @@ background-color: purple;
         while($korisnik = mysqli_fetch_array($rez))
         {
           if($korisnik['ime'] == $ime && $korisnik['prezime'] == $prezime)
-              return $korisnik['korisnikID'];
+              return $korisnik['citalacID'];
         }
         return false;
      }
@@ -303,7 +303,7 @@ background-color: purple;
      $rez = self::vratiSveZanrove($baza);
      while($zanr = mysqli_fetch_array($rez))
      {
-       if($zanr['imeZanra'] == $this->imeZanra)
+       if($zanr['imeZanra'] == $this->nazivZanra)
           return true;
      }
      return false;
