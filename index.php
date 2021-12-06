@@ -18,7 +18,7 @@ h2 {
   background-color: purple;
   text-align: center;
 }
-.najpopularnijiReditelji{
+.najpopRed{
   position: relative; 
   left: 45%;
  width: 20%;
@@ -60,7 +60,7 @@ h2 {
    <button type="submit" name="skloni" id="skloni" onclick="skloniDiv('tekstONama')">Ukloni tekst</button>
    <br><br>
    <button type="submit" name="btnNajReditelji" id="btnNajReditelji">Najpopularniji reditelji</button>
-   <button type="submit" name="skloniReditelje" id="skloniReditelje" onclick="skloniDiv('najpopularnijiReditelji')">Ukloni tekst</button>
+   <button type="submit" name="skloniReditelje" id="skloniReditelje" onclick="skloniDiv('najpopRed')">Ukloni tekst</button>
     <h2>Dobrodosli u FILMOMANIJU!</h2>
     <div class="korfil">
         <a href="korisnik.php" target="_blank">Korisnici</a>
@@ -68,7 +68,7 @@ h2 {
         <a href="film.php" target="_blank">Filmovi</a>
     </div>
     <div id="tekstONama", class="tekstONama"></div>
-    <div id="najpopularnijiReditelji", class="najpopularnijiReditelji"></div>
+    <div id="najpopRed", class="najpopRed"></div>
     <script>
     //1. AJAX - ucitavanje iz json fajla
     document.getElementById("btnNajReditelji").addEventListener("click", vratiReditelje);
@@ -93,7 +93,7 @@ h2 {
                 " </li>" +
                 "</ul>";
             }
-            document.getElementById("najpopularnijiReditelji").innerHTML = output;
+            document.getElementById("najpopRed").innerHTML = output;
           }
         };
         xhr.send();
