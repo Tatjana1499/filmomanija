@@ -79,7 +79,7 @@
      <label for="cmbReditelji">Reditelj: </label>
      <select name="cmbReditelji" id="cmbReditelji">
        <?php 
-          $rez = Pisac::vratiSvePisce($link);
+          $rez = Reditelj::vratiSvePisce($link);
           while($reditelj = mysqli_fetch_array($rez))
           {
             $imePrezime = $reditelj['imePisca'].' '.$reditelj['prezimePisca'];
@@ -130,7 +130,7 @@
      <label for="reditelji">Reditelj: </label>
      <select name="reditelji" id="reditelji">
       <?php 
-          $rez = Pisac::vratiSvePisce($link);
+          $rez = Reditelj::vratiSvePisce($link);
           while($reditelj = mysqli_fetch_array($rez))
           {
             $imePrezime = $reditelj['imePisca'].' '.$reditelj['prezimePisca'];
@@ -151,7 +151,7 @@
      <label for="drzave">Država: </label>
      <select name="drzave" id="drzave">
           <?php
-            $rez = Pisac::vratiSveZemljeRazlicito($link);
+            $rez = Reditelj::vratiSveZemljeRazlicito($link);
             while($zemlje = mysqli_fetch_array($rez))
               {
                 $zemlja = $zemlje['zemljaPorekla'];
@@ -195,7 +195,7 @@
       $prezimeReditelja;
       $drzavaReditelja;
       $nazivZanra;
-      $povratniNiz = Citalac::iseciImePrezime($_POST['cmbReditelji']);
+      $povratniNiz = Korisnik::iseciImePrezime($_POST['cmbReditelji']);
       $imeReditelja = $povratniNiz['ime'];
       $prezimeReditelja = $povratniNiz['prezime'];
       $nazivZanra = $_POST['listaZanrova'];
@@ -204,7 +204,7 @@
          $imeReditelja = $_POST['imeNovogRed'];
          $prezimeReditelja = $_POST['prezimeNovogRed'];
          $drzavaReditelja = $_POST['drzavaRed'];
-         $reditelj = new Pisac($imeReditelja, $prezimeReditelja, $drzavaReditelja);
+         $reditelj = new Reditelj($imeReditelja, $prezimeReditelja, $drzavaReditelja);
          $reditelj->unesiPiscaUBazu($link);
       }
       if($_POST['noviZanr'] != "")
@@ -216,12 +216,12 @@
          else
            echo "Žanr već postoji.";
       }
-      $rediteljID = Pisac::vratiIdPisca($link, $imeReditelja, $prezimeReditelja);
+      $rediteljID = Reditelj::vratiIdPisca($link, $imeReditelja, $prezimeReditelja);
       $zanrID = Zanr::vratiIdZanra($link, $nazivZanra);
       $nazivFilma = $_POST['nazivFilma'];
       if($nazivFilma == "")
         die();
-      $film = new Knjiga($nazivFilma, $rediteljID, $zanrID);
+      $film = new Film($nazivFilma, $rediteljID, $zanrID);
       if(!$film->postojiKnjiga($link))
           $film->dodajKnjiguUBazu($link);
       else
@@ -230,7 +230,7 @@
    if(isset($_POST['brisanje']))
    {
      $nazivFilma = $_POST['nazivFilma'];
-     $povratniNiz = Citalac::iseciImePrezime($_POST['cmbReditelji']);
+     $povratniNiz = Korisnik::iseciImePrezime($_POST['cmbReditelji']);
      $imeReditelja = $povratniNiz['ime'];
      $prezimeReditelja = $povratniNiz['prezime'];
      $nazivZanra = $_POST['listaZanrova'];
@@ -238,24 +238,24 @@
       {
         die();
       }
-     $rediteljID = Pisac::vratiIdPisca($link, $imeReditelja, $prezimeReditelja);
+     $rediteljID = Reditelj::vratiIdPisca($link, $imeReditelja, $prezimeReditelja);
      $zanrID = Zanr::vratiIdZanra($link, $nazivZanra);
-     $filmBrisi = new Knjiga($nazivFilma, $rediteljID, $zanrID);
+     $filmBrisi = new Film($nazivFilma, $rediteljID, $zanrID);
      $filmBrisi->izbaciKnjiguIzBaze($link);
      var_dump($_POST);
    }
    if(isset($_POST['nadjiFilmove']))
    {
       $imePrezReditelja = $_POST['reditelji'];
-      $niz = Citalac::iseciImePrezime($imePrezReditelja);
-      $idReditelj = Pisac::vratiIdPisca($link, $niz['ime'], $niz['prezime']);
+      $niz = Korisnik::iseciImePrezime($imePrezReditelja);
+      $idReditelj = Reditelj::vratiIdPisca($link, $niz['ime'], $niz['prezime']);
       echo "<table border=2>";
        echo "<tr>";
          echo "<th>"; echo "Reditelj"; echo "</th>";
          echo "<th>"; echo "Naziv filma"; echo "</th>";
          echo "<th>"; echo "Žanr"; echo "</th>";
        echo "</tr>";
-         $rez = Knjiga::vratiKnjigeSpojenoSaZanrom($link);
+         $rez = Film::vratiKnjigeSpojenoSaZanrom($link);
          while($film = mysqli_fetch_array($rez))
          {
            if($film['pisacID'] == $idReditelj)
@@ -272,7 +272,7 @@
    if(isset($_POST['nadjiReditelja']))
    {
       $drzava = $_POST['drzave'];
-      $rez = Pisac::vratiSvePisce($link);
+      $rez = Reditelj::vratiSvePisce($link);
       echo "<table border=2>";
       echo "<tr>";
          echo "<th>"; echo "Reditelj"; echo "</th>";
@@ -294,7 +294,7 @@
    {
      echo "<br>";
      $nazivZanra = $_POST['zanrovi'];
-     $tabela = Knjiga::vratiKnjigeSpojenoSaZanromSpojenoSaPiscem($link);
+     $tabela = Film::vratiKnjigeSpojenoSaZanromSpojenoSaPiscem($link);
      echo "<table border=2>";
      echo "<tr>";
          echo "<th>"; echo "Naziv filma"; echo "</th>";

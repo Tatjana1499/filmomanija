@@ -113,7 +113,7 @@ h3{
         <label for="prov">Korisnik: </label>
         <select name="listaKorisnika" id="prov">
           <?php
-            $rez = Citalac::vratiSveCitaoce($link);
+            $rez = Korisnik::vratiSveCitaoce($link);
             while($korisnik = mysqli_fetch_array($rez))
             {
               $imePrezime = $korisnik['ime'].' '.$korisnik['prezime'];
@@ -135,7 +135,7 @@ h3{
           <label for="kor">Korisnik: </label>
           <select name="listaKor" id="kor">
           <?php
-            $rez = Citalac::vratiSveCitaoce($link);
+            $rez = Korisnik::vratiSveCitaoce($link);
             while($korisnik = mysqli_fetch_array($rez))
             {
               $imePrezime = $korisnik['ime'].' '.$korisnik['prezime'];
@@ -148,7 +148,7 @@ h3{
           <label for="film">Film: </label> 
           <select name="listaFilmova" id="film">
             <?php
-              $rez = Knjiga::vratiSveKnjige($link);
+              $rez = Film::vratiSveKnjige($link);
               while($film = mysqli_fetch_array($rez))
               {
                 $naziv = $film['imeKnjige'];
@@ -170,7 +170,7 @@ h3{
   {
     if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['kategorija'] !== "")
     {
-        $korisnik = new Citalac($_POST['ime'], $_POST['prezime'], $_POST['kategorija']);
+        $korisnik = new Korisnik($_POST['ime'], $_POST['prezime'], $_POST['kategorija']);
         if(!$korisnik->postojiUBazi($link))
           $korisnik->upisiUBazu($link);
         else
@@ -180,9 +180,9 @@ h3{
   if(isset($_POST['proveraZaduzenja']))
   {
     $vrednost = $_POST['listaKorisnika'];
-    $povratniNiz = Citalac::iseciImePrezime($vrednost);
-    $id = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    $rezultatUpita = UzeoKnjigu::vratiSpojenoCitalacKnjigaPisac($link);
+    $povratniNiz = Korisnik::iseciImePrezime($vrednost);
+    $id = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    $rezultatUpita = Iznajmljivanje::vratiSpojenoCitalacKnjigaPisac($link);
     echo '<table class="iznajmljeni" border="2">';
     echo '<tr>';
       echo '<th>'; echo 'Ime' ; echo '</th>';
@@ -192,7 +192,7 @@ h3{
     echo '</tr>';
     while($korisnik = mysqli_fetch_array($rezultatUpita))
     {
-      if($korisnik['citalacID'] == $id)
+      if($korisnik['korisnikID'] == $id)
       {
         echo '<tr>';
           echo '<th>'; echo $korisnik['ime'] ; echo '</th>';
@@ -207,30 +207,30 @@ h3{
   if(isset($_POST['obrisiKorisnika']))
   {
     $vrednost = $_POST['listaKorisnika'];
-    $povratniNiz = Citalac::iseciImePrezime($vrednost);
-    $id = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    Citalac::izbaciCitaoca($link, $id);
+    $povratniNiz = Korisnik::iseciImePrezime($vrednost);
+    $id = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    Korisnik::izbaciCitaoca($link, $id);
   }
   if(isset($_POST['iznajmiSad']))
   {
     $imePrezime = $_POST['listaKor'];
     $imeKnjige = $_POST['listaFilmova'];
-    $idKnjige = Knjiga::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
-    $povratniNiz = Citalac::iseciImePrezime($imePrezime);
-    $korisnikID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    if(UzeoKnjigu::postojiParCitalacKnjiga($link, $korisnikID, $idKnjige))
+    $filmID = Film::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
+    $povratniNiz = Korisnik::iseciImePrezime($imePrezime);
+    $korisnikID = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    if(Iznajmljivanje::postojiParCitalacKnjiga($link, $korisnikID, $filmID))
       die("<h3>Korisnik $imePrezime je već iznajmio film $imeKnjige.</h3>");
-    UzeoKnjigu::ubaciParCitalacKnjigaUBazu($link, $korisnikID, $idKnjige);
+      Iznajmljivanje::ubaciParCitalacKnjigaUBazu($link, $korisnikID, $filmID);
   }
   if(isset($_POST['vratiSad']))
   {
     $imePrezime = $_POST['listaKor'];
     $imeKnjige = $_POST['listaFilmova'];
-    $idKnjige = Knjiga::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
-    $povratniNiz = Citalac::iseciImePrezime($imePrezime);
-    $korisnikID = Citalac::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    if(!UzeoKnjigu::postojiParCitalacKnjiga($link, $korisnikID, $idKnjige))
+    $filmID = Film::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
+    $povratniNiz = Korisnik::iseciImePrezime($imePrezime);
+    $korisnikID = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    if(!Iznajmljivanje::postojiParCitalacKnjiga($link, $korisnikID, $filmID))
       die("<h3>Korisnik $imePrezime nije iznajmio film $imeKnjige.<h3>");
-    UzeoKnjigu::izbaciParCitalacKnjiga($link, $korisnikID, $idKnjige);
+      Iznajmljivanje::izbaciParCitalacKnjiga($link, $korisnikID, $filmID);
   }
 ?>
