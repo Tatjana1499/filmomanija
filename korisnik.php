@@ -100,7 +100,7 @@ h3{
         <label for="kategorija">Vrsta članstva: </label><br>
         <input type="text" name="kategorija" id="kategorija" placeholder="Unesite vrstu članstva"> <br>
         <br>
-        <button  type="submit" onclick="proveriFormuZaUnosCitaoca()" name="registruj" >Unesi u bazu</button>
+        <button  type="submit" onclick="proveriUnosKorisnika()" name="registruj" >Unesi u bazu</button>
         <br>
         
     </form>
@@ -192,7 +192,7 @@ h3{
     echo '</tr>';
     while($korisnik = mysqli_fetch_array($rezultatUpita))
     {
-      if($korisnik['korisnikID'] == $id)
+      if($korisnik['citalacID'] == $id)
       {
         echo '<tr>';
           echo '<th>'; echo $korisnik['ime'] ; echo '</th>';
