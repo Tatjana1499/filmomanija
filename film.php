@@ -46,7 +46,7 @@
 .frmDodajFilm{
   position: relative;
   left: 50%;
-  width: 600px;
+  width: 700px;
 }
 .frmRediteljPoDrzavi{
   position: relative;
@@ -237,7 +237,7 @@
      $zanrID = Zanr::vratiIdZanra($link, $nazivZanra);
      $filmBrisi = new Film($nazivFilma, $rediteljID, $zanrID);
      $filmBrisi->izbaciKnjiguIzBaze($link);
-     var_dump($_POST);
+     
    }
    if(isset($_POST['nadjiFilmove']))
    {

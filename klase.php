@@ -277,7 +277,7 @@ background-color: purple;
    }
    public static function vratiSveZanrove($baza)
    {
-     $sqlUpit = "SELECT * FROM nazivZanra";
+     $sqlUpit = "SELECT * FROM zanr";
      $rez = mysqli_query($baza, $sqlUpit);
      return $rez;
    }
