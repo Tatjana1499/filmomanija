@@ -151,7 +151,7 @@ h3{
               $rez = Film::vratiSveKnjige($link);
               while($film = mysqli_fetch_array($rez))
               {
-                $naziv = $film['imeKnjige'];
+                $naziv = $film['nazivFilma'];
               ?>
                 <option value="<?php echo $naziv ?>"><?php echo $naziv ?></option>      
             <?php
@@ -192,13 +192,13 @@ h3{
     echo '</tr>';
     while($korisnik = mysqli_fetch_array($rezultatUpita))
     {
-      if($korisnik['citalacID'] == $id)
+      if($korisnik['korisnikID'] == $id)
       {
         echo '<tr>';
           echo '<th>'; echo $korisnik['ime'] ; echo '</th>';
           echo '<th>'; echo $korisnik['prezime'] ; echo '</th>';
-          echo '<th>'; echo $korisnik['imeKnjige'] ; echo '</th>';
-          echo '<th>'; echo $korisnik['imePisca'].' '.$korisnik['prezimePisca'] ; echo '</th>';
+          echo '<th>'; echo $korisnik['nazivFilma'] ; echo '</th>';
+          echo '<th>'; echo $korisnik['imeReditelja'].' '.$korisnik['prezimeReditelja'] ; echo '</th>';
       echo '</tr>';
       }
     }

@@ -36,7 +36,7 @@ table{
 <?php
   include "konekcija.php";
   echo "<h2>Dostupni filmovi: </h2>";
-  $sqlUpit = "SELECT * FROM knjiga JOIN pisac USING(pisacID) JOIN zanr USING(zanrID)";
+  $sqlUpit = "SELECT * FROM film JOIN reditelj USING(rediteljID) JOIN zanr USING(zanrID)";
   $rez = mysqli_query($link, $sqlUpit);
   if(!$rez)
     die ("Došlo je do greške.");
@@ -49,9 +49,9 @@ table{
     while($film = mysqli_fetch_array($rez))
     {
       echo "<tr>";
-         echo "<td>"; echo $film['imeKnjige'];  echo "</td>";
-         echo "<td>"; echo $film['imePisca'].' '.$film['prezimePisca'];
-         echo "<td>"; echo $film['imeZanra'];  echo "</td>";
+         echo "<td>"; echo $film['nazivFilma'];  echo "</td>";
+         echo "<td>"; echo $film['imeReditelja'].' '.$film['prezimeReditelja'];
+         echo "<td>"; echo $film['nazivZanra'];  echo "</td>";
       echo "</tr>";
     }
   echo "</table>";

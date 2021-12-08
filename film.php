@@ -77,7 +77,7 @@
           $rez = Reditelj::vratiSvePisce($link);
           while($reditelj = mysqli_fetch_array($rez))
           {
-            $imePrezime = $reditelj['imePisca'].' '.$reditelj['prezimePisca'];
+            $imePrezime = $reditelj['imeReditelja'].' '.$reditelj['prezimeReditelja'];
         ?>
             <option value="<?php echo $imePrezime ?>"><?php echo $imePrezime ?></option>
         <?php
@@ -90,7 +90,7 @@
           $rez = Zanr::vratiSveZanrove($link);
           while($zanr = mysqli_fetch_array($rez))
           {
-            $nazivZanra = $zanr['imeZanra'];
+            $nazivZanra = $zanr['nazivZanra'];
         ?>
             <option value="<?php echo $nazivZanra ?>"><?php echo $nazivZanra?></option>
         <?php
@@ -128,7 +128,7 @@
           $rez = Reditelj::vratiSvePisce($link);
           while($reditelj = mysqli_fetch_array($rez))
           {
-            $imePrezime = $reditelj['imePisca'].' '.$reditelj['prezimePisca'];
+            $imePrezime = $reditelj['imeReditelja'].' '.$reditelj['prezimeReditelja'];
         ?>
             <option value="<?php echo $imePrezime ?>"><?php echo $imePrezime ?></option>
         <?php
@@ -149,7 +149,7 @@
             $rez = Reditelj::vratiSveZemljeRazlicito($link);
             while($zemlje = mysqli_fetch_array($rez))
               {
-                $zemlja = $zemlje['zemljaPorekla'];
+                $zemlja = $zemlje['drzava'];
           ?>
               <option value="<?php echo $zemlja ?>"><?php echo $zemlja ?></option>
           <?php      
@@ -170,7 +170,7 @@
         $rez = Zanr::vratiSvaImenaZanrovaRazlicito($link);
         while($zanr = mysqli_fetch_array($rez))
         {
-          $nazivZanra = $zanr['imeZanra'];
+          $nazivZanra = $zanr['nazivZanra'];
       ?>
           <option value="<?php echo $nazivZanra ?>"><?php echo $nazivZanra ?></option>
       <?php
@@ -253,12 +253,12 @@
          $rez = Film::vratiKnjigeSpojenoSaZanrom($link);
          while($film = mysqli_fetch_array($rez))
          {
-           if($film['pisacID'] == $idReditelj)
+           if($film['rediteljID'] == $idReditelj)
            {
               echo "<tr>";
                 echo "<td>"; echo $niz['ime'].' '.$niz['prezime']; echo "</td>";
-                echo "<td>"; echo $film['imeKnjige']; echo "</td>";
-                echo "<td>"; echo $film['imeZanra']; echo "</td>";
+                echo "<td>"; echo $film['nazivFilma']; echo "</td>";
+                echo "<td>"; echo $film['nazivZanra']; echo "</td>";
               echo "</tr>";
            }
          }
@@ -275,11 +275,11 @@
        echo "</tr>";
       while($reditelj = mysqli_fetch_array($rez))
       {
-          if($reditelj['zemljaPorekla'] == $drzava)
+          if($reditelj['drzava'] == $drzava)
           {
             echo "<tr>";
-              echo "<td>"; echo $reditelj['imePisca'].' '.$reditelj['prezimePisca']; echo "</td>";
-              echo "<td>"; echo $reditelj['zemljaPorekla']; echo "</td>";
+              echo "<td>"; echo $reditelj['imeReditelja'].' '.$reditelj['prezimeReditelja']; echo "</td>";
+              echo "<td>"; echo $reditelj['drzava']; echo "</td>";
            echo "</tr>";
           }
       }
@@ -298,12 +298,12 @@
      echo "</tr>";
      while($film = mysqli_fetch_array($tabela))
      {
-        if($film['imeZanra'] == $nazivZanra)
+        if($film['nazivZanra'] == $nazivZanra)
         {
           echo "<tr>";
-           echo "<td>"; echo $film['imeKnjige']; echo "</td>";
-           echo "<td>"; echo $film['imePisca'].' '.$film['prezimePisca']; echo "</td>";
-           echo "<td>"; echo $film['imeZanra']; echo "</td>";
+           echo "<td>"; echo $film['nazivFilma']; echo "</td>";
+           echo "<td>"; echo $film['imeReditelja'].' '.$film['prezimeReditelja']; echo "</td>";
+           echo "<td>"; echo $film['nazivZanra']; echo "</td>";
           echo "</tr>";
         }
      }

@@ -34,6 +34,12 @@
     left: 1000px;
     width: 200px;
   }
+  h3{
+   position: relative;
+   top: 100px;
+    left: 800px;
+    width: 500px;
+  }
 </style>
 </head>
 <body>
@@ -42,10 +48,10 @@
 <?php
   include "konekcija.php";
   echo "<h1>Svi korisnici: </h1>";
-  $sqlUpit = "SELECT * FROM citalac c JOIN kategorijaclanstva k USING(kategorijaClanstvaID)";
+  $sqlUpit = "SELECT * FROM korisnik k JOIN clanstvo c USING(vrstaClanstvaID)";
   $rez = mysqli_query($link, $sqlUpit);
   if(!$rez)
-    die("Došlo je do greške prilikom učitavanja korisnika.");
+    die("<h3>Došlo je do greške prilikom učitavanja korisnika.</h3>");
   echo "<table border=2>";
      echo "<tr>";  
         echo "<th>"; echo "Ime";  echo "</th>";
