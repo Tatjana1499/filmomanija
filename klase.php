@@ -52,7 +52,7 @@ background-color: purple;
    }
     function postojiUBazi($baza)
     {
-       $rez = self::vratiSveCitaoce($baza);
+       $rez = self::vratiSveKorisnike($baza);
        while($korisnik = mysqli_fetch_array($rez))
        {
          if($korisnik['ime'] == $this->ime &&  $korisnik['prezime'] == $this->prezime)
@@ -60,15 +60,15 @@ background-color: purple;
        }
        return false;
      } 
-     static function vratiSveCitaoce($baza)
+     static function vratiSveKorisnike($baza)
      {
        $sql = "SELECT * FROM korisnik";
        $rez = mysqli_query($baza, $sql);
        return $rez;
      }
-     static function vratiIDcitaoca($baza, $ime, $prezime)
+     static function vratiIDKorisnika($baza, $ime, $prezime)
      {
-        $rez = self::vratiSveCitaoce($baza);
+        $rez = self::vratiSveKorisnike($baza);
         while($korisnik = mysqli_fetch_array($rez))
         {
           if($korisnik['ime'] == $ime && $korisnik['prezime'] == $prezime)
@@ -76,13 +76,13 @@ background-color: purple;
         }
         return false;
      }
-     static function iseciImePrezime($string)
+     static function odvojImePrezime($string)
      {
        $niz = explode(" ", $string);
        $povratniNiz = ['ime' => $niz[0], 'prezime' => $niz[1]];
        return $povratniNiz;
      }
-     static function izbaciCitaoca($baza, $korisnikID)
+     static function izbaciKorisnika($baza, $korisnikID)
      {
         $sqlUpit = "DELETE FROM korisnik WHERE korisnikID = $korisnikID";
         $rez = mysqli_query($baza, $sqlUpit);
@@ -104,15 +104,15 @@ background-color: purple;
       $this->rediteljID = $rediteljID;
       $this->zanrID = $zanrID;
     }
-    static function vratiSveKnjige($baza)
+    static function vratiSveFilmove($baza)
     {
       $sqlUpit = "SELECT * FROM film";
       $rez = mysqli_query($baza, $sqlUpit);
       return $rez;
     }
-    static function vratiIDKnjigeNaOsnovuImena($baza, $nazivFilma)
+    static function vratiIDFilma($baza, $nazivFilma)
     {
-      $rez = self::vratiSveKnjige($baza);
+      $rez = self::vratiSveFilmove($baza);
       while($film = mysqli_fetch_array($rez))
       {
         if($film['nazivFilma'] == $nazivFilma)
@@ -120,7 +120,7 @@ background-color: purple;
       }
       return false;
     }
-    function dodajKnjiguUBazu($baza)
+    function dodajFilm($baza)
     {
       $sqlUpit = "INSERT INTO film(nazivFilma, rediteljID, zanrID) VALUES('$this->nazivFilma', '$this->rediteljID', '$this->zanrID')";
       $rez = mysqli_query($baza, $sqlUpit);
@@ -129,7 +129,7 @@ background-color: purple;
       else
         echo "<h4>Greška, film nije dodat.</h4>";
     }
-    function izbaciKnjiguIzBaze($baza)
+    function izbaciFilm($baza)
     {
       $sqlUpit = "DELETE FROM film WHERE nazivFilma = '$this->nazivFilma' AND rediteljID = '$this->rediteljID' AND zanrID = '$this->zanrID'";
       $rez = mysqli_query($baza, $sqlUpit);
@@ -138,9 +138,9 @@ background-color: purple;
       else  
         echo "<h4>Greška, film nije obrisan.</h4>";
     }
-    function postojiKnjiga($baza)
+    function postojiFilm($baza)
     {
-      $rez = self::vratiSveKnjige($baza);
+      $rez = self::vratiSveFilmove($baza);
       while($film = mysqli_fetch_array($rez))
       {
         if($film['nazivFilma'] == $this->nazivFilma)
@@ -150,13 +150,13 @@ background-color: purple;
       }
       return false;
     }
-    static function vratiKnjigeSpojenoSaZanrom($baza)
+    static function vratiFilmIZanr($baza)
     {
       $sqlUpit = "SELECT * FROM film JOIN zanr USING(zanrID)";
       $rez = mysqli_query($baza, $sqlUpit);
       return $rez;
     }
-    static function vratiKnjigeSpojenoSaZanromSpojenoSaPiscem($baza)
+    static function vratiFilmIZanrIReditelja($baza)
     {
       $sqlUpit = "SELECT * FROM film f JOIN zanr USING(zanrID) JOIN reditelj USING(rediteljID)";
       $rez = mysqli_query($baza, $sqlUpit);
@@ -172,25 +172,25 @@ background-color: purple;
      $this->korisnikID = $korisnikID;
      $this->filmID = $filmID;
    }
-   static function vratiSvaUzimanja($baza)
+   static function vratiIznajmljivanja($baza)
    {
      $sqlUpit = "SELECT * FROM iznajmljivanje";
      $rez = mysqli_query($baza, $sqlUpit);
      return $rez;
    }
-   static function vratiSpojenoCitalacKnjiga($baza)
+   static function vratiKorisnikFilm($baza)
    {
       $sqlUpit = "SELECT * FROM iznajmljivanje i JOIN korisnik k USING(korisnikID) JOIN film f USING(filmID)";
       $rez = mysqli_query($baza, $sqlUpit);
       return $rez;
    }
-   static function vratiSpojenoCitalacKnjigaPisac($baza)
+   static function vratiKorisnikFilmReditelj($baza)
    {
      $sqlUpit = "SELECT * FROM iznajmljivanje i JOIN korisnik k USING(korisnikID) JOIN film f USING(filmID) JOIN reditelj r USING(rediteljID)";
      $rez = mysqli_query($baza, $sqlUpit);
      return $rez;
    }
-   static function postojiParCitalacKnjiga($baza, $korisnikID, $filmID)
+   static function parKorisnikFilm($baza, $korisnikID, $filmID)
    {
      $sqlUpit = "SELECT * FROM iznajmljivanje";
      $rez = mysqli_query($baza, $sqlUpit);
@@ -203,7 +203,7 @@ background-color: purple;
      }
      return false;
    }
-   static function ubaciParCitalacKnjigaUBazu($baza, $korisnikID, $filmID)
+   static function ubaciKorisnikaIFilm($baza, $korisnikID, $filmID)
    {
      $sqlUpit = "INSERT INTO iznajmljivanje(korisnikID, filmID) VALUES('$korisnikID', '$filmID')";
      $rez = mysqli_query($baza, $sqlUpit);
@@ -212,7 +212,7 @@ background-color: purple;
      else
        echo "<h2>Greška, korisnik nije uspeo da iznajmi film.</h2>";
    }
-   static function izbaciParCitalacKnjiga($baza, $korisnikID, $filmID)
+   static function izbaciKorisnikaIFilm($baza, $korisnikID, $filmID)
    {
      $sqlUpit = "DELETE FROM iznajmljivanje WHERE korisnikID = $korisnikID AND filmID = $filmID";
      $rez = mysqli_query($baza, $sqlUpit);
@@ -234,15 +234,15 @@ background-color: purple;
      $this->prezimeReditelja = $prezimeReditelja;
      $this->drzava = $drzava;
    }
-   public static function vratiSvePisce($baza)
+   public static function vratiSveReditelje($baza)
    {
       $sqlUpit = "SELECT * FROM reditelj";
       $rez = mysqli_query($baza, $sqlUpit);
       return $rez;
    }
-   public static function vratiIdPisca($baza, $ime, $prezime)
+   public static function vratiIDReditelja($baza, $ime, $prezime)
    {
-     $rezultatUpita = self::vratiSvePisce($baza);
+     $rezultatUpita = self::vratiSveReditelje($baza);
      while($reditelj = mysqli_fetch_array($rezultatUpita))
      {
        if($reditelj['imeReditelja'] == $ime && $reditelj['prezimeReditelja'] == $prezime)
@@ -250,7 +250,7 @@ background-color: purple;
      }
      return false;
    }
-   function unesiPiscaUBazu($baza)
+   function dodajReditelja($baza)
    {
      $sqlUpit = "INSERT INTO reditelj(imeReditelja, prezimeReditelja, drzava) VALUE ('$this->imeReditelja', '$this->prezimeReditelja', '$this->drzava')";
      $rez = mysqli_query($baza, $sqlUpit);
@@ -259,7 +259,7 @@ background-color: purple;
      else
        echo "<h4>Greška, reditelj nije dodat.</h4>";
    }
-   static function vratiSveZemljeRazlicito($baza)
+   static function vratiRazlicitoSveDrzave($baza)
    {
      $sqlUpit = "SELECT DISTINCT drzava FROM reditelj";
      $rez = mysqli_query($baza, $sqlUpit);
@@ -281,13 +281,13 @@ background-color: purple;
      $rez = mysqli_query($baza, $sqlUpit);
      return $rez;
    }
-   public static function vratiSvaImenaZanrovaRazlicito($baza)
+   public static function vratiRazlicitoSveZanrove($baza)
    {
      $sqlUpit = "SELECT DISTINCT nazivZanra FROM zanr";
      $rez = mysqli_query($baza, $sqlUpit);
      return $rez;
    }
-   public static function vratiIdZanra($baza, $nazivZanra)
+   public static function vratiIDZanra($baza, $nazivZanra)
    {
      $rez = self::vratiSveZanrove($baza);
      while($zanr = mysqli_fetch_array($rez))
@@ -307,7 +307,7 @@ background-color: purple;
      }
      return false;
    }
-   function unesiZanrUBazu($baza)
+   function dodajZanr($baza)
    {
      $sqlUpit = "INSERT INTO zanr(nazivZanra) VALUES('$this->nazivZanra')";
      $rez = mysqli_query($baza, $sqlUpit);

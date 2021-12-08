@@ -61,7 +61,7 @@ h2 {
    <br><br>
    <button type="submit" name="btnNajReditelji" id="btnNajReditelji">Najpopularniji reditelji</button>
    <button type="submit" name="skloniReditelje" id="skloniReditelje" onclick="skloniDiv('najpopRed')">Ukloni tekst</button>
-    <h2>Dobrodosli u FILMOMANIJU!</h2>
+    <h2>Dobrodošli u FILMOMANIJU!</h2>
     <div class="korfil">
         <a href="korisnik.php" target="_blank">Korisnici</a>
         <br> <br>

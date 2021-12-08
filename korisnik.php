@@ -92,7 +92,7 @@ h3{
     </div>
     <div id="unosKorisnika", class="unosKorisnika">
       <form action="" name="frmUnosKorisnika" method="post">
-      <label for="">Postanita naš korisnik! </label><br><br>
+      <label for="">Postanite naš korisnik! </label><br><br>
         <label for="ime">Ime:</label><br>
         <input type="text" name="ime" id="ime" placeholder="Unesite ime"> <br><br>
         <label for="prezime">Prezime: </label><br>
@@ -113,7 +113,7 @@ h3{
         <label for="prov">Korisnik: </label>
         <select name="listaKorisnika" id="prov">
           <?php
-            $rez = Korisnik::vratiSveCitaoce($link);
+            $rez = Korisnik::vratiSveKorisnike($link);
             while($korisnik = mysqli_fetch_array($rez))
             {
               $imePrezime = $korisnik['ime'].' '.$korisnik['prezime'];
@@ -135,7 +135,7 @@ h3{
           <label for="kor">Korisnik: </label>
           <select name="listaKor" id="kor">
           <?php
-            $rez = Korisnik::vratiSveCitaoce($link);
+            $rez = Korisnik::vratiSveKorisnike($link);
             while($korisnik = mysqli_fetch_array($rez))
             {
               $imePrezime = $korisnik['ime'].' '.$korisnik['prezime'];
@@ -148,7 +148,7 @@ h3{
           <label for="film">Film: </label> 
           <select name="listaFilmova" id="film">
             <?php
-              $rez = Film::vratiSveKnjige($link);
+              $rez = Film::vratiSveFilmove($link);
               while($film = mysqli_fetch_array($rez))
               {
                 $naziv = $film['nazivFilma'];
@@ -180,9 +180,9 @@ h3{
   if(isset($_POST['proveraZaduzenja']))
   {
     $vrednost = $_POST['listaKorisnika'];
-    $povratniNiz = Korisnik::iseciImePrezime($vrednost);
-    $id = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    $rezultatUpita = Iznajmljivanje::vratiSpojenoCitalacKnjigaPisac($link);
+    $povratniNiz = Korisnik::odvojImePrezime($vrednost);
+    $id = Korisnik::vratiIDKorisnika($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    $rezultatUpita = Iznajmljivanje::vratiKorisnikFilmReditelj($link);
     echo '<table class="iznajmljeni" border="2">';
     echo '<tr>';
       echo '<th>'; echo 'Ime' ; echo '</th>';
@@ -207,30 +207,30 @@ h3{
   if(isset($_POST['obrisiKorisnika']))
   {
     $vrednost = $_POST['listaKorisnika'];
-    $povratniNiz = Korisnik::iseciImePrezime($vrednost);
-    $id = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    Korisnik::izbaciCitaoca($link, $id);
+    $povratniNiz = Korisnik::odvojImePrezime($vrednost);
+    $id = Korisnik::vratiIDKorisnika($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    Korisnik::izbaciKorisnika($link, $id);
   }
   if(isset($_POST['iznajmiSad']))
   {
     $imePrezime = $_POST['listaKor'];
     $imeKnjige = $_POST['listaFilmova'];
-    $filmID = Film::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
-    $povratniNiz = Korisnik::iseciImePrezime($imePrezime);
-    $korisnikID = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    if(Iznajmljivanje::postojiParCitalacKnjiga($link, $korisnikID, $filmID))
+    $filmID = Film::vratiIDFilma($link, $imeKnjige);
+    $povratniNiz = Korisnik::odvojImePrezime($imePrezime);
+    $korisnikID = Korisnik::vratiIDKorisnika($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    if(Iznajmljivanje::parKorisnikFilm($link, $korisnikID, $filmID))
       die("<h3>Korisnik $imePrezime je već iznajmio film $imeKnjige.</h3>");
-      Iznajmljivanje::ubaciParCitalacKnjigaUBazu($link, $korisnikID, $filmID);
+      Iznajmljivanje::ubaciKorisnikaIFilm($link, $korisnikID, $filmID);
   }
   if(isset($_POST['vratiSad']))
   {
     $imePrezime = $_POST['listaKor'];
     $imeKnjige = $_POST['listaFilmova'];
-    $filmID = Film::vratiIDKnjigeNaOsnovuImena($link, $imeKnjige);
-    $povratniNiz = Korisnik::iseciImePrezime($imePrezime);
-    $korisnikID = Korisnik::vratiIDcitaoca($link, $povratniNiz['ime'], $povratniNiz['prezime']);
-    if(!Iznajmljivanje::postojiParCitalacKnjiga($link, $korisnikID, $filmID))
+    $filmID = Film::vratiIDFilma($link, $imeKnjige);
+    $povratniNiz = Korisnik::odvojImePrezime($imePrezime);
+    $korisnikID = Korisnik::vratiIDKorisnika($link, $povratniNiz['ime'], $povratniNiz['prezime']);
+    if(!Iznajmljivanje::parKorisnikFilm($link, $korisnikID, $filmID))
       die("<h3>Korisnik $imePrezime nije iznajmio film $imeKnjige.<h3>");
-      Iznajmljivanje::izbaciParCitalacKnjiga($link, $korisnikID, $filmID);
+      Iznajmljivanje::izbaciKorisnikaIFilm($link, $korisnikID, $filmID);
   }
 ?>

@@ -3,11 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2021 at 02:51 PM
+-- Generation Time: Dec 08, 2021 at 06:18 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -32,6 +33,15 @@ CREATE TABLE `clanstvo` (
   `nazivClanstva` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `clanstvo`
+--
+
+INSERT INTO `clanstvo` (`vrstaClanstvaID`, `nazivClanstva`) VALUES
+(1, 'nedeljno'),
+(2, 'mesecno'),
+(3, 'godisnje');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +55,24 @@ CREATE TABLE `film` (
   `zanrID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `film`
+--
+
+INSERT INTO `film` (`filmID`, `nazivFilma`, `rediteljID`, `zanrID`) VALUES
+(1, 'Riders of Justice', 7, 1),
+(2, 'Come True', 10, 5),
+(3, 'Identifying Features', 4, 2),
+(4, 'Saint Maud', 11, 5),
+(5, 'About Endlessness', 1, 2),
+(6, 'The Beta Test', 12, 4),
+(7, 'Licorice Pizza', 2, 3),
+(8, 'Quo Vadis, Aida?', 5, 8),
+(9, 'Drive My Car', 3, 2),
+(10, 'Pig', 8, 4),
+(11, 'State Funeral', 6, 8),
+(12, 'No Sudden Move', 9, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +83,18 @@ CREATE TABLE `iznajmljivanje` (
   `korisnikID` int(10) NOT NULL,
   `filmID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `iznajmljivanje`
+--
+
+INSERT INTO `iznajmljivanje` (`korisnikID`, `filmID`) VALUES
+(1, 2),
+(1, 9),
+(1, 12),
+(3, 4),
+(3, 10),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -69,6 +109,18 @@ CREATE TABLE `korisnik` (
   `vrstaClanstvaID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `korisnik`
+--
+
+INSERT INTO `korisnik` (`korisnikID`, `ime`, `prezime`, `vrstaClanstvaID`) VALUES
+(0, 'kor1', 'kor1', 1),
+(1, 'Pera', 'Peric', 3),
+(2, 'Mika', 'Mikic', 3),
+(3, 'Zika', 'Zikic', 1),
+(4, 'Marko', 'Markovic', 1),
+(5, 'Ilija', 'Ilic', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +134,25 @@ CREATE TABLE `reditelj` (
   `drzava` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `reditelj`
+--
+
+INSERT INTO `reditelj` (`rediteljID`, `imeReditelja`, `prezimeReditelja`, `drzava`) VALUES
+(0, 'proba2', 'proba2', 'proba2'),
+(1, 'Roy', 'Andersson', 'Svedska'),
+(2, 'Paul Thomas', 'Anderson', 'SAD'),
+(3, 'Ryusuke', 'Hamaguchi', 'Japan'),
+(4, 'Fernanda', 'Valadez', 'Meksiko'),
+(5, 'Jasmila', 'Zbanic', 'Bosna i Hercegovina'),
+(6, 'Sergey', 'Loznitsa', 'Belorusija'),
+(7, 'Anders Thomas', 'Jensen', 'Danska'),
+(8, 'Michael', 'Sarnoski', 'SAD'),
+(9, 'Steven', 'Soderbergh', 'SAD'),
+(10, 'Anthony Scott', 'Burns', 'Kanada'),
+(11, 'Rose', 'Glass', 'Velika Britanija'),
+(12, 'Jim', 'Cummings', 'SAD');
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +163,23 @@ CREATE TABLE `zanr` (
   `zanrID` int(10) NOT NULL,
   `nazivZanra` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `zanr`
+--
+
+INSERT INTO `zanr` (`zanrID`, `nazivZanra`) VALUES
+(0, 'proba2'),
+(1, 'akcija'),
+(2, 'drama'),
+(3, 'komedija'),
+(4, 'triler'),
+(5, 'horor'),
+(6, 'porodicni'),
+(7, 'biografski'),
+(8, 'istorijski'),
+(9, 'ljubavni'),
+(10, 'misterija');
 
 --
 -- Indexes for dumped tables
@@ -136,6 +224,45 @@ ALTER TABLE `reditelj`
 --
 ALTER TABLE `zanr`
   ADD PRIMARY KEY (`zanrID`);
+
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `korisnik`
+--
+ALTER TABLE `korisnik`
+  MODIFY `korisnikID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `vrstaClanstva`
+--
+ALTER TABLE `clanstvo`
+  MODIFY `vrstaClanstvaID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `film`
+--
+ALTER TABLE `film`
+  MODIFY `filmID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `reditelj`
+--
+ALTER TABLE `reditelj`
+  MODIFY `rediteljID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `zanr`
+--
+ALTER TABLE `zanr`
+  MODIFY `zanrID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Constraints for dumped tables
+--
 
 --
 -- Constraints for dumped tables
