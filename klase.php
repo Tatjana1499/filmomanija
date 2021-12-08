@@ -9,15 +9,32 @@ h2{
   position: relative;
 background-color: purple;
   left: 60%;
- width: 400px;
+ height: 400px;
  text-align: center;
 }
-h4{
-  position: relative;
-background-color: purple;
- top:-600px;
- width: 400px;
- text-align: center;
+.obavestenjeFilm{
+  position: fixed;;
+   bottom: 450px;
+    width: 400px;
+    text-align: center;
+    background-color: purple;
+     color: white;
+}
+.obavestenjeReditelj{
+  position: fixed;;
+   bottom: 400px;
+    width: 400px;
+    text-align: center;
+    background-color: purple;
+     color: white;
+}
+.obavestenjeZanr{
+  position: fixed;;
+   bottom: 350px;
+    width: 400px;
+    text-align: center;
+    background-color: purple;
+     color: white;
 }
 </style>
 </head>
@@ -44,7 +61,7 @@ background-color: purple;
    function upisiUBazu($baza)
    {
       $sqlUpit = "INSERT INTO korisnik(ime, prezime, vrstaClanstvaID) VALUES('$this->ime', '$this->prezime', '$this->vrstaClanstvaID')";
-      $rez = mysqli_query($baza, $sqlUpit);
+      $rez = mysqli_query($baza, $sqlUpit); 
       if($rez)
          echo "<h2>Korisnik je dodat.</h2>";
       else
@@ -124,19 +141,23 @@ background-color: purple;
     {
       $sqlUpit = "INSERT INTO film(nazivFilma, rediteljID, zanrID) VALUES('$this->nazivFilma', '$this->rediteljID', '$this->zanrID')";
       $rez = mysqli_query($baza, $sqlUpit);
+      echo "<div class='obavestenjeFilm'>";
       if($rez)
         echo "<h4>Film je dodat.</h4>";
       else
         echo "<h4>Greška, film nije dodat.</h4>";
+      echo "</div>";
     }
     function izbaciFilm($baza)
     {
       $sqlUpit = "DELETE FROM film WHERE nazivFilma = '$this->nazivFilma' AND rediteljID = '$this->rediteljID' AND zanrID = '$this->zanrID'";
       $rez = mysqli_query($baza, $sqlUpit);
+      echo "<div class='obavestenjeFilm'>";
       if($rez)
         echo "<h4>Film je obrisan.</h4>";
       else  
         echo "<h4>Greška, film nije obrisan.</h4>";
+      echo "</div>";
     }
     function postojiFilm($baza)
     {
@@ -254,10 +275,12 @@ background-color: purple;
    {
      $sqlUpit = "INSERT INTO reditelj(imeReditelja, prezimeReditelja, drzava) VALUE ('$this->imeReditelja', '$this->prezimeReditelja', '$this->drzava')";
      $rez = mysqli_query($baza, $sqlUpit);
+     echo "<div class='obavestenjeReditelj'>";
      if($rez)
        echo "<h4>Reditelj je dodat.</h4>";
      else
        echo "<h4>Greška, reditelj nije dodat.</h4>";
+      echo "</div>";
    }
    static function vratiRazlicitoSveDrzave($baza)
    {
@@ -311,10 +334,12 @@ background-color: purple;
    {
      $sqlUpit = "INSERT INTO zanr(nazivZanra) VALUES('$this->nazivZanra')";
      $rez = mysqli_query($baza, $sqlUpit);
+     echo "<div class='obavestenjeZanr'>";
      if($rez)
        echo "<h4>Žanr je uspešno dodat.</h4>";
      else
        echo "<h4>Došlo je do greške, žanr nije dodat.</h4>";
+      echo "</div>";
    }
  }
 ?>
