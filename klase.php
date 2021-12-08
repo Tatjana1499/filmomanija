@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <style>
-h2{
+.obavestenja{
   position: relative;
 background-color: purple;
   left: 60%;
@@ -63,9 +63,9 @@ background-color: purple;
       $sqlUpit = "INSERT INTO korisnik(ime, prezime, vrstaClanstvaID) VALUES('$this->ime', '$this->prezime', '$this->vrstaClanstvaID')";
       $rez = mysqli_query($baza, $sqlUpit); 
       if($rez)
-         echo "<h2>Korisnik je dodat.</h2>";
+         echo "<h2 class='obavestenja'>Korisnik je dodat.</h2>";
       else
-         echo "<h2>Greška, korisnik nije dodat.</h2>"; 
+         echo "<h2 class='obavestenja'>Greška, korisnik nije dodat.</h2>"; 
    }
     function postojiUBazi($baza)
     {
@@ -104,9 +104,9 @@ background-color: purple;
         $sqlUpit = "DELETE FROM korisnik WHERE korisnikID = $korisnikID";
         $rez = mysqli_query($baza, $sqlUpit);
         if($rez)
-          echo "<h2>Korisnik je izbačen.</h2>";
+          echo "<h2 class='obavestenja'>Korisnik je izbačen.</h2>";
         else
-          echo "<h2>Greška, korisnik nije izbačen.</h2>";        
+          echo "<h2 class='obavestenja'>Greška, korisnik nije izbačen.</h2>";        
      }
  }
  class Film
@@ -229,18 +229,18 @@ background-color: purple;
      $sqlUpit = "INSERT INTO iznajmljivanje(korisnikID, filmID) VALUES('$korisnikID', '$filmID')";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "<h2>Korisnik je iznajmio film.</h2>";
+       echo "<h2 class='obavestenja'>Korisnik je iznajmio film.</h2>";
      else
-       echo "<h2>Greška, korisnik nije uspeo da iznajmi film.</h2>";
+       echo "<h2 class='obavestenja'>Greška, korisnik nije uspeo da iznajmi film.</h2>";
    }
    static function izbaciKorisnikaIFilm($baza, $korisnikID, $filmID)
    {
      $sqlUpit = "DELETE FROM iznajmljivanje WHERE korisnikID = $korisnikID AND filmID = $filmID";
      $rez = mysqli_query($baza, $sqlUpit);
      if($rez)
-       echo "<h2>Korisnik je vratio film.</h2>";
+       echo "<h2 class='obavestenja'>Korisnik je vratio film.</h2>";
      else
-       echo "<h2>Greška, korisnik nije uspeo da vrati film.</h2>";
+       echo "<h2 class='obavestenja'>Greška, korisnik nije uspeo da vrati film.</h2>";
    }
  }
  class Reditelj 
