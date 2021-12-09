@@ -8,6 +8,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Film</title>
 <style>
+ 
   a{
     color: lightblue;
     text-decoration: none;
@@ -209,7 +210,7 @@
          if(!$zanr->postojiZanr($link))
            $zanr->dodajZanr($link);
          else
-           echo "Žanr već postoji.";
+           echo "<h2 class='obavestenjeZanr'>Žanr već postoji.</h2>";
       }
       $rediteljID = Reditelj::vratiIDReditelja($link, $imeReditelja, $prezimeReditelja);
       $zanrID = Zanr::vratiIDZanra($link, $nazivZanra);
@@ -220,7 +221,7 @@
       if(!$film->postojiFilm($link))
           $film->dodajFilm($link);
       else
-        echo "Film već postoji.";     
+        echo "<h2 class='obavestenjeFilm'>Film već postoji.</h2>";     
    }
    if(isset($_POST['brisanje']))
    {

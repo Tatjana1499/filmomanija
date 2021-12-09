@@ -174,7 +174,7 @@ h3{
         if(!$korisnik->postojiUBazi($link))
           $korisnik->upisiUBazu($link);
         else
-           echo "Korisnik već postoji u bazi.";
+           echo "<h2 class='obavestenja'>Korisnik već postoji u bazi.</h2>";
     }
   }
   if(isset($_POST['proveraZaduzenja']))

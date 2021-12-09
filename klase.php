@@ -8,8 +8,8 @@
 .obavestenja{
   position: relative;
 background-color: purple;
-  left: 60%;
- height: 400px;
+  width: 200px;
+left: 60%;
  text-align: center;
 }
 .obavestenjeFilm{
