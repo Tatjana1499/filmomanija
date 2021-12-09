@@ -97,12 +97,11 @@ h3{
         <input type="text" name="ime" id="ime" placeholder="Unesite ime"> <br><br>
         <label for="prezime">Prezime: </label><br>
         <input type="text" name="prezime" id="prezime" placeholder="Unesite prezime"> <br><br>
-        <label for="kategorija">Vrsta članstva: </label><br>
-        <input type="text" name="kategorija" id="kategorija" placeholder="Unesite vrstu članstva"> <br>
+        <label for="vrstaCl">Vrsta članstva: </label><br>
+        <input type="text" name="vrstaCl" id="vrstaCl" placeholder="Unesite vrstu članstva"> <br>
         <br>
         <button  type="submit" onclick="proveriUnosKorisnika()" name="registruj" >Unesi u bazu</button>
         <br>
-        
     </form>
     <br>
     </div>
@@ -168,9 +167,9 @@ h3{
 <?php
   if(isset($_POST['registruj']))
   {
-    if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['kategorija'] !== "")
+    if($_POST['ime'] !== "" && $_POST['prezime'] !== "" && $_POST['vrstaCl'] !== "")
     {
-        $korisnik = new Korisnik($_POST['ime'], $_POST['prezime'], $_POST['kategorija']);
+        $korisnik = new Korisnik($_POST['ime'], $_POST['prezime'], $_POST['vrstaCl']);
         if(!$korisnik->postojiUBazi($link))
           $korisnik->upisiUBazu($link);
         else
@@ -214,23 +213,23 @@ h3{
   if(isset($_POST['iznajmiSad']))
   {
     $imePrezime = $_POST['listaKor'];
-    $imeKnjige = $_POST['listaFilmova'];
-    $filmID = Film::vratiIDFilma($link, $imeKnjige);
+    $nazivFilma = $_POST['listaFilmova'];
+    $filmID = Film::vratiIDFilma($link, $nazivFilma);
     $povratniNiz = Korisnik::odvojImePrezime($imePrezime);
     $korisnikID = Korisnik::vratiIDKorisnika($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     if(Iznajmljivanje::parKorisnikFilm($link, $korisnikID, $filmID))
-      die("<h3>Korisnik $imePrezime je već iznajmio film $imeKnjige.</h3>");
+      die("<h3>Korisnik $imePrezime je već iznajmio film $nazivFilma.</h3>");
       Iznajmljivanje::ubaciKorisnikaIFilm($link, $korisnikID, $filmID);
   }
   if(isset($_POST['vratiSad']))
   {
     $imePrezime = $_POST['listaKor'];
-    $imeKnjige = $_POST['listaFilmova'];
-    $filmID = Film::vratiIDFilma($link, $imeKnjige);
+    $nazivFilma = $_POST['listaFilmova'];
+    $filmID = Film::vratiIDFilma($link, $nazivFilma);
     $povratniNiz = Korisnik::odvojImePrezime($imePrezime);
     $korisnikID = Korisnik::vratiIDKorisnika($link, $povratniNiz['ime'], $povratniNiz['prezime']);
     if(!Iznajmljivanje::parKorisnikFilm($link, $korisnikID, $filmID))
-      die("<h3>Korisnik $imePrezime nije iznajmio film $imeKnjige.<h3>");
+      die("<h3>Korisnik $imePrezime nije iznajmio film $nazivFilma.<h3>");
       Iznajmljivanje::izbaciKorisnikaIFilm($link, $korisnikID, $filmID);
   }
 ?>

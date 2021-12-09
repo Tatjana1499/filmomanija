@@ -77,7 +77,7 @@ h2 {
         xhr.open("GET", "najpopularnijiReditelji.json", true);
         xhr.onload = function () {
           if (this.status == 200) {
-            var reditelji = JSON.parse(this.responseText); //parsiranje niza objekata zbog pristupa poljima dot operatorom
+            var reditelji = JSON.parse(this.responseText);
             var output = "";
             for (var r in reditelji) {
               output +=

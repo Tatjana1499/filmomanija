@@ -8,7 +8,6 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Film</title>
 <style>
- 
   a{
     color: lightblue;
     text-decoration: none;
@@ -238,7 +237,6 @@
      $zanrID = Zanr::vratiIDZanra($link, $nazivZanra);
      $filmBrisi = new Film($nazivFilma, $rediteljID, $zanrID);
      $filmBrisi->izbaciFilm($link);
-     
    }
    if(isset($_POST['nadjiFilmove']))
    {

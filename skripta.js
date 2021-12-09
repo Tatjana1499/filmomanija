@@ -40,32 +40,32 @@ function proveriUnosKorisnika() {
   if (
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value != "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value != "") ||
+      document.getElementById("vrstaCl").value != "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value != "" &&
-      document.getElementById("kategorija").value == "") ||
+      document.getElementById("vrstaCl").value == "") ||
     (document.getElementById("ime").value != "" &&
       document.getElementById("prezime").value == "" &&
-      document.getElementById("kategorija").value != "") ||
+      document.getElementById("vrstaCl").value != "") ||
     (document.getElementById("ime").value == "" &&
       document.getElementById("prezime").value !== "" &&
-      document.getElementById("kategorija").value != "")
+      document.getElementById("vrstaCl").value != "")
   ) {
     alert("Popuni sva polja za unos korisnika.");
     return;
   }
   if (
-    document.getElementById("kategorija").value > 3 ||
-    document.getElementById("kategorija").value == 0
+    document.getElementById("vrstaCl").value > 3 ||
+    document.getElementById("vrstaCl").value == 0
   ) {
     alert("Vrsta članstva mora biti:\n 1 - nedeljno\n 2 - mesečno\n 3 - godišnje");
   }
