@@ -3,12 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2021 at 06:18 PM
+-- Generation Time: Dec 09, 2021 at 11:01 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -114,12 +113,12 @@ CREATE TABLE `korisnik` (
 --
 
 INSERT INTO `korisnik` (`korisnikID`, `ime`, `prezime`, `vrstaClanstvaID`) VALUES
-(0, 'kor1', 'kor1', 1),
 (1, 'Pera', 'Peric', 3),
 (2, 'Mika', 'Mikic', 3),
 (3, 'Zika', 'Zikic', 1),
 (4, 'Marko', 'Markovic', 1),
-(5, 'Ilija', 'Ilic', 1);
+(5, 'Ilija', 'Ilic', 1),
+(6, 'Lara', 'Laric', 2);
 
 -- --------------------------------------------------------
 
@@ -139,7 +138,6 @@ CREATE TABLE `reditelj` (
 --
 
 INSERT INTO `reditelj` (`rediteljID`, `imeReditelja`, `prezimeReditelja`, `drzava`) VALUES
-(0, 'proba2', 'proba2', 'proba2'),
 (1, 'Roy', 'Andersson', 'Svedska'),
 (2, 'Paul Thomas', 'Anderson', 'SAD'),
 (3, 'Ryusuke', 'Hamaguchi', 'Japan'),
@@ -169,7 +167,6 @@ CREATE TABLE `zanr` (
 --
 
 INSERT INTO `zanr` (`zanrID`, `nazivZanra`) VALUES
-(0, 'proba2'),
 (1, 'akcija'),
 (2, 'drama'),
 (3, 'komedija'),
@@ -225,19 +222,12 @@ ALTER TABLE `reditelj`
 ALTER TABLE `zanr`
   ADD PRIMARY KEY (`zanrID`);
 
-
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `korisnik`
---
-ALTER TABLE `korisnik`
-  MODIFY `korisnikID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `vrstaClanstva`
+-- AUTO_INCREMENT for table `clanstvo`
 --
 ALTER TABLE `clanstvo`
   MODIFY `vrstaClanstvaID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
@@ -247,6 +237,12 @@ ALTER TABLE `clanstvo`
 --
 ALTER TABLE `film`
   MODIFY `filmID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `korisnik`
+--
+ALTER TABLE `korisnik`
+  MODIFY `korisnikID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reditelj`
@@ -259,10 +255,6 @@ ALTER TABLE `reditelj`
 --
 ALTER TABLE `zanr`
   MODIFY `zanrID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- Constraints for dumped tables
---
 
 --
 -- Constraints for dumped tables
