@@ -67,6 +67,6 @@ function proveriUnosKorisnika() {
     document.getElementById("vrstaCl").value > 3 ||
     document.getElementById("vrstaCl").value == 0
   ) {
-    alert("Vrsta članstva mora biti:\n 1 - nedeljno\n 2 - mesečno\n 3 - godišnje");
+    alert("Vrsta članstva mora biti broj:\n 1 (nedeljno)\n 2 (mesečno)\n 3 (godišnje)");
   }
 }

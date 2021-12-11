@@ -100,7 +100,7 @@ h3{
         <label for="vrstaCl">Vrsta članstva: </label><br>
         <input type="text" name="vrstaCl" id="vrstaCl" placeholder="Unesite vrstu članstva"> <br>
         <br>
-        <button  type="submit" onclick="proveriUnosKorisnika()" name="registruj" >Unesi u bazu</button>
+        <button  type="submit" onclick="proveriUnosKorisnika()" name="registruj">Registruj</button>
         <br>
     </form>
     <br>
